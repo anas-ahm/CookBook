@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookBookLibrary", "CookBookLibrary\CookBookLibrary.csproj", "{0588E4B2-49EB-4A94-A246-BACA980EA0A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookBookRazor", "CookBookRazor\CookBookRazor.csproj", "{88774059-BDAB-4A48-92B2-2C6738BAEBAA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0588E4B2-49EB-4A94-A246-BACA980EA0A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0588E4B2-49EB-4A94-A246-BACA980EA0A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0588E4B2-49EB-4A94-A246-BACA980EA0A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0588E4B2-49EB-4A94-A246-BACA980EA0A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88774059-BDAB-4A48-92B2-2C6738BAEBAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88774059-BDAB-4A48-92B2-2C6738BAEBAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88774059-BDAB-4A48-92B2-2C6738BAEBAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88774059-BDAB-4A48-92B2-2C6738BAEBAA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
