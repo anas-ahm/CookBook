@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookBookLibrary", "CookBook
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookBookRazor", "CookBookRazor\CookBookRazor.csproj", "{88774059-BDAB-4A48-92B2-2C6738BAEBAA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookBookConsole", "CookBookConsole\CookBookConsole.csproj", "{EA6A6DDD-7D13-442D-B48D-8E8C69BC1DD2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{88774059-BDAB-4A48-92B2-2C6738BAEBAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88774059-BDAB-4A48-92B2-2C6738BAEBAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88774059-BDAB-4A48-92B2-2C6738BAEBAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA6A6DDD-7D13-442D-B48D-8E8C69BC1DD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA6A6DDD-7D13-442D-B48D-8E8C69BC1DD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA6A6DDD-7D13-442D-B48D-8E8C69BC1DD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA6A6DDD-7D13-442D-B48D-8E8C69BC1DD2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
