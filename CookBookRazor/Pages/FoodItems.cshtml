@@ -1,0 +1,22 @@
+@page
+
+
+@using CookBookLibrary.Model
+@model CookBookRazor.Pages.FoodItems
+
+@{
+
+    foreach (FoodItem foodItem in Model.allFoodItems)
+    {
+        <p>@foodItem.Name</p>
+        <p>Calories: @foodItem.Calories kcal</p>
+        <p>Protein: @foodItem.Protein g</p>
+        <p>Fat: @foodItem.Fat g</p>
+        <p>Saturated fat: @foodItem.SaturatedFat g</p>
+        <p>Carbs: @foodItem.Carbs g</p>
+        <p>Sugar: @foodItem.Sugar g</p>
+        <p>Fiber: @foodItem.Fiber g</p>
+        <p>Salt: @foodItem.Salt g</p>
+    }
+}
+
