@@ -21,10 +21,27 @@ public class RecipeRepo : ICrud<Recipe>
                 VALUES (@name, @description, @instructions);
                 """;
 
+            using MySqlConnection conn = _dbWorker.ConnectToDB();
+
+            using MySqlCommand cmd = new MySqlCommand(sql, conn);
+
+            cmd.Parameters.AddWithValue("name", item._name);
+            cmd.Parameters.AddWithValue("description", item._description);
+            cmd.Parameters.AddWithValue("instructions", item._instructions);
+
+            // inserting the new id from DB into item
+            int newId = (int)cmd.LastInsertedId;
+            item._id = newId;
+
+            cmd.ExecuteNonQuery();
+            
+            // Running method helper that puts all ingredients into DB
+            InsertRecipeIngredientsToDB(item);
+
         }
         catch (Exception ex)
         {
-            
+            throw new Exception("Cant create new Recipe", ex);
         }
 
         return item;
@@ -76,7 +93,7 @@ public class RecipeRepo : ICrud<Recipe>
             }
             catch (Exception ex)
             {
-                
+                throw new Exception("Something went wrong inserting ingredient list into DB", ex);
             }
         }
     }
