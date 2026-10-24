@@ -1,9 +1,10 @@
 namespace CookBookLibrary.Repository;
+using MySqlConnector;
 using DotNetEnv;
 
 public class DBWorker
 {
-    public string ConnectToDB()
+    public MySqlConnection ConnectToDB()
     {
         Env.TraversePath().Load();
         
@@ -14,6 +15,7 @@ public class DBWorker
             throw new Exception("Connection string not found. check if correct name or if the worker can find the file");
         }
 
-        return connString;
+        MySqlConnection connection = new MySqlConnection(connString);
+        return connection;
     }
 }

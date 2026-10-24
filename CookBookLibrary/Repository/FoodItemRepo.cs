@@ -2,24 +2,22 @@ namespace CookBookLibrary.Repository;
 using CookBookLibrary.Model;
 using MySqlConnector;
 
-public class FoodItemRepo : IFoodItemRepo
+public class FoodItemRepo : ICrud<FoodItem>
 {
-    private string ConnectToDB()
+    private readonly DBWorker _dbWorker;
+
+    public FoodItemRepo(DBWorker dbWorker)
     {
-        DBWorker dbWorker = new DBWorker();
-
-        string connString = dbWorker.ConnectToDB();
-
-        return connString;
+        _dbWorker = dbWorker;
     }
     
-    public FoodItem CreateFoodItem(FoodItem foodItem)
+    public FoodItem Create(FoodItem foodItem)
     {
         string sql = """
                      INSERT INTO FoodItem (name, calories, protein, fat, saturated_fat, carbs, sugar, fiber, salt) VALUES (@name, @calories, @protein, @fat, @saturated_fat, @carbs, @sugar, @fiber, @salt)
                      """;
 
-        using MySqlConnection connString = new MySqlConnection(ConnectToDB());
+        using MySqlConnection connString = _dbWorker.ConnectToDB();
         connString.Open();
 
         MySqlCommand cmd = new MySqlCommand(sql, connString);
@@ -40,11 +38,11 @@ public class FoodItemRepo : IFoodItemRepo
     }
     
     // READ (one)
-    public FoodItem? GetFoodItemById(int id)
+    public FoodItem? GetById(int id)
     {
         string sql = " SELECT * FROM FoodItem WHERE id = @id ";
 
-        using MySqlConnection conn = new MySqlConnection(ConnectToDB());
+        using MySqlConnection conn = _dbWorker.ConnectToDB();
         conn.Open();
 
         using MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -78,7 +76,7 @@ public class FoodItemRepo : IFoodItemRepo
     }
 
     // READ (all)
-    public List<FoodItem> GetAllFoodItems()
+    public List<FoodItem> GetAll()
     {
         string sql = """
                      SELECT *
@@ -88,7 +86,7 @@ public class FoodItemRepo : IFoodItemRepo
 
         List<FoodItem> foodItems = new List<FoodItem>();
 
-        using MySqlConnection conn = new MySqlConnection(ConnectToDB());
+        using MySqlConnection conn = _dbWorker.ConnectToDB();
         conn.Open();
 
         using MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -126,7 +124,7 @@ public class FoodItemRepo : IFoodItemRepo
     }
 
     // UPDATE
-    public FoodItem UpdateFoodItem(FoodItem foodItem)
+    public FoodItem Update(FoodItem foodItem, int id)
     {
         string sql = """
                      UPDATE FoodItem
@@ -142,7 +140,7 @@ public class FoodItemRepo : IFoodItemRepo
                      WHERE id = @id
                      """;
 
-        using MySqlConnection conn = new MySqlConnection(ConnectToDB());
+        using MySqlConnection conn = _dbWorker.ConnectToDB();
         conn.Open();
 
         using MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -164,16 +162,20 @@ public class FoodItemRepo : IFoodItemRepo
     }
 
     // DELETE
-    public void DeleteFoodItem(int id)
+    public FoodItem Delete(int id)
     {
+        FoodItem foodItem = GetById(id);
+        
         string sql = "DELETE FROM FoodItem WHERE id = @id";
 
-        using MySqlConnection conn = new MySqlConnection(ConnectToDB());
+        using MySqlConnection conn = _dbWorker.ConnectToDB();
         conn.Open();
 
         using MySqlCommand cmd = new MySqlCommand(sql, conn);
         cmd.Parameters.AddWithValue("@id", id);
 
        cmd.ExecuteNonQuery();
+
+       return foodItem;
     }
 }
