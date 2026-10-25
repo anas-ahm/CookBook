@@ -1,5 +1,6 @@
 @page
 @model CookBookRazor.Pages.RecipeDetails
+@using CookBookLibrary.Model
 
 @{
 }
@@ -9,6 +10,28 @@
     
     <!-- Image -->
     <div>
+        <img/>
+        <h4>@Model.recipeToShow._name</h4>
+        <p>@Model.recipeToShow._description</p>
+        
+        <h5>Ingredients</h5>
+        @foreach (RecipeIngredient item in @Model.recipeToShow._ingredients)
+        {
+            <p>@item.FoodItem.Name: @item.Grams grams</p>
+        }
+        
+        <h5>Macros</h5>
+        <p>Calories: @Model.Calories Kcal</p>
+        <p>Protein: @Model.Protein g</p>
+        <p>Carbs: @Model.Carbs g</p>
+        <p>Sugar: @Model.Sugar g</p>
+        <p>Fat: @Model.Fat g</p>
+        <p>Saturated Fat: @Model.SaturatedFat g</p>
+        <p>Fiber: @Model.Fiber g</p>
+        <p>Salt: @Model.Salt g</p>
+        
+        <h5>Instructions</h5>
+        <p>@Model.recipeToShow._instructions</p>
         
     </div>
     
@@ -17,14 +40,4 @@
         <h1 class="Recipe"></h1>
     </div>
     
-</div>
-
-
-
-<div class="container">
-    
-    <form method="post" asp-page-handler="CreateRecipe">
-        
-    </form>
-
 </div>

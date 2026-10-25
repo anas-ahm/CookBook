@@ -11,8 +11,8 @@ public class CreateRecipe : PageModel
     // Connecting to service & ILogger
     private readonly FoodItemService _foodItemService;
     private readonly RecipeService _recipeService;
-    private readonly ILogger<IndexModel> _logger;
-    public CreateRecipe(FoodItemService foodItemService, ILogger<IndexModel> logger, RecipeService recipeService)
+    private readonly ILogger<CreateRecipe> _logger;
+    public CreateRecipe(FoodItemService foodItemService, ILogger<CreateRecipe> logger, RecipeService recipeService)
     {
         _foodItemService = foodItemService;
         _logger = logger;

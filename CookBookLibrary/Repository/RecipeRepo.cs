@@ -5,9 +5,9 @@ using MySqlConnector;
 public class RecipeRepo : ICrud<Recipe>, IRecipeIngredient
 {
     private readonly DBWorker _dbWorker;
-    private readonly FoodItemRepo _foodItemRepo;
+    private readonly ICrud<FoodItem> _foodItemRepo;
 
-    public RecipeRepo(DBWorker dbWorker, FoodItemRepo foodItemRepo)
+    public RecipeRepo(DBWorker dbWorker, ICrud<FoodItem> foodItemRepo)
     {
         _dbWorker = dbWorker;
         _foodItemRepo = foodItemRepo;

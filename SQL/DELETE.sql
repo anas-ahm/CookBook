@@ -1,2 +1,1 @@
-DELETE FROM recipes WHERE id =
-                        1
+DELETE FROM recipe_ingredients
