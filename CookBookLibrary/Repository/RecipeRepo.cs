@@ -56,11 +56,40 @@ public class RecipeRepo : ICrud<Recipe>, IRecipeIngredient
     {
         throw new NotImplementedException();
     }
+    
 
     public List<Recipe> GetAll()
     {
-        throw new NotImplementedException();
+        List<Recipe> recipeList = new List<Recipe>();
+        
+        try
+        {
+            string sql = """
+                         SELECT id, name, description, instructions
+                         FROM recipes
+                         """;
 
+            using MySqlConnection conn = _dbWorker.ConnectToDB();
+            using MySqlCommand cmd = new MySqlCommand(sql, conn);
+            using MySqlDataReader reader = cmd.ExecuteReader();
+            
+            while (reader.Read())
+            {
+                Recipe recipeToCreate = new Recipe();
+                recipeToCreate._id = reader.GetInt32("recipe_id");
+                recipeToCreate._name = reader.GetString("name");
+                recipeToCreate._description = reader.GetString("description");
+                recipeToCreate._instructions = reader.GetString("instructions");
+
+                recipeList.Add(recipeToCreate);
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("couldn't get all recipes", ex);
+        }
+
+        return recipeList;
     }
 
     public Recipe Delete(int id)
