@@ -5,10 +5,12 @@ using MySqlConnector;
 public class RecipeRepo : ICrud<Recipe>, IRecipeIngredient
 {
     private readonly DBWorker _dbWorker;
+    private readonly FoodItemRepo _foodItemRepo;
 
-    public RecipeRepo(DBWorker dbWorker)
+    public RecipeRepo(DBWorker dbWorker, FoodItemRepo foodItemRepo)
     {
         _dbWorker = dbWorker;
+        _foodItemRepo = foodItemRepo;
     }
     
     public Recipe Create(Recipe item)
@@ -49,7 +51,50 @@ public class RecipeRepo : ICrud<Recipe>, IRecipeIngredient
 
     public Recipe GetById(int id)
     {
-        throw new NotImplementedException();
+        Recipe recipeItem = new Recipe();
+        List<RecipeIngredient> recipeIngredients = new List<RecipeIngredient>();
+        
+        try
+        {
+            string sql = """
+                         SELECT recipes.id, recipes.name, recipes.description, recipes.instructions,
+                                recipe_ingredients.food_item_id, recipe_ingredients.grams
+                         FROM recipes
+                         LEFT JOIN recipe_ingredients ON recipes.id = recipe_ingredients.recipe_id
+                         WHERE recipes.id = @id
+                         """;
+            
+            using MySqlConnection conn = _dbWorker.ConnectToDB();
+            using MySqlCommand cmd = new MySqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("id", id);
+            using MySqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                recipeItem._id = id;
+                recipeItem._name = reader.GetString("name");
+                recipeItem._description = reader.GetString("description");
+                recipeItem._instructions = reader.GetString("instructions");
+                
+                if (!reader.IsDBNull(reader.GetOrdinal("food_item_id")))
+                {
+                    int foodItemId = reader.GetInt32("food_item_id");
+                    double grams = reader.GetDouble("grams");
+
+                    FoodItem foodItem = _foodItemRepo.GetById(foodItemId)!;
+
+                    recipeIngredients.Add(new RecipeIngredient(foodItem, grams));
+                }
+            }
+
+            recipeItem._ingredients = recipeIngredients;
+
+            return recipeItem;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Couldn't get recipe", ex);
+        }
     }
 
     public Recipe Update(Recipe newItem, int id)
@@ -76,7 +121,7 @@ public class RecipeRepo : ICrud<Recipe>, IRecipeIngredient
             while (reader.Read())
             {
                 Recipe recipeToCreate = new Recipe();
-                recipeToCreate._id = reader.GetInt32("recipe_id");
+                recipeToCreate._id = reader.GetInt32("id");
                 recipeToCreate._name = reader.GetString("name");
                 recipeToCreate._description = reader.GetString("description");
                 recipeToCreate._instructions = reader.GetString("instructions");

@@ -1,5 +1,6 @@
 ﻿@page
 @model IndexModel
+@using CookBookLibrary.Model
 @{}
 
 <div class="container">
@@ -12,4 +13,16 @@
 <!-- See all Recipes-->
 <div class="container">
     
+    @foreach (Recipe recipe in Model.allRecipes)
+    {
+        <div class="recipe-card">
+            
+            <div>
+                <img/>
+                <h5>@recipe._name</h5>
+                <p>@recipe._description</p>
+                <a asp-page="/RecipeDetails" asp-route-id="@recipe._id">See Full Recipe</a>
+            </div>
+        </div>
+    }
 </div>

@@ -8,17 +8,17 @@ namespace CookBookRazor.Pages;
 public class RecipeDetails : PageModel
 {
     // Connecting to service
-    private readonly CookBookService _cookBookService;
+    private readonly RecipeService _recipeService;
 
-    public RecipeDetails(CookBookService cookBookService)
+    public RecipeDetails(RecipeService recipeService)
     {
-        _cookBookService = cookBookService;
+        _recipeService = recipeService;
     }
-
-    // List for RecipeIngredients objects to be shown in OnGet
-    public List<Recipe> recipeIngredients { get; set; }
     
-    public void OnGet()
+    public Recipe recipeToShow { get; set; }
+    
+    public void OnGet(int id)
     {
+        recipeToShow = _recipeService.GetRecipeById(id)
     }
 }

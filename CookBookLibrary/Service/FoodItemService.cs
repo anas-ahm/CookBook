@@ -2,30 +2,23 @@ namespace CookBookLibrary.Service;
 using CookBookLibrary.Repository;
 using CookBookLibrary.Model;
 
-public class CookBookService
+public class FoodItemService
 {
     // Connecting to Repositories
     private readonly ICrud<FoodItem> _foodItemRepo;
-    private readonly ICrud<Recipe> _recipeRepo;
-    private readonly IRecipeIngredient _recipeIngredient;
+
 
     // Constructor
-    public CookBookService(ICrud<FoodItem> foodItemRepo, ICrud<Recipe> recipeRepo, IRecipeIngredient recipeIngredient)
+    public FoodItemService(ICrud<FoodItem> foodItemRepo)
     {
         _foodItemRepo = foodItemRepo;
-        _recipeRepo = recipeRepo;
-        _recipeIngredient = recipeIngredient;
+
     }
 
     // CREATE
     public FoodItem CreateFoodItem(FoodItem foodItem)
     {
         return _foodItemRepo.Create(foodItem);
-    }
-
-    public Recipe CreateRecipe(Recipe item)
-    {
-        return _recipeRepo.Create(item);
     }
 
     // READ (one)
@@ -52,10 +45,4 @@ public class CookBookService
         _foodItemRepo.Delete(id);
     }
     
-    // Get all RecipeIngredients
-    public List<RecipeIngredient> GetAllRecipeIngredients()
-    {
-        List<FoodItem> foodItems = _foodItemRepo.GetAll();
-        return _recipeIngredient.GetAllRecipeIngredients(foodItems);
-    }
 }

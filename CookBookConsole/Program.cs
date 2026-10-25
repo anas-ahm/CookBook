@@ -4,7 +4,7 @@ using CookBookLibrary.Service;
 
 // Connecting to service
 FoodItemRepo _foodItemRepo = new FoodItemRepo();
-CookBookService _cookBookService = new CookBookService(_foodItemRepo);
+FoodItemService foodItemService = new FoodItemService(_foodItemRepo);
 
 
 
@@ -21,5 +21,5 @@ foodItemToAdd.Sugar = 5;
 foodItemToAdd.Fiber = 2;
 foodItemToAdd.Salt = 1;
 
-_cookBookService.CreateFoodItem(foodItemToAdd);
+foodItemService.CreateFoodItem(foodItemToAdd);
 

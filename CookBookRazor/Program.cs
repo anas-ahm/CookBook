@@ -12,7 +12,8 @@ builder.Services.AddScoped<ICrud<FoodItem>, FoodItemRepo>();
 builder.Services.AddScoped<ICrud<Recipe>, RecipeRepo>();
 builder.Services.AddScoped<IRecipeIngredient, RecipeRepo>();
 builder.Services.AddScoped<DBWorker>();
-builder.Services.AddScoped<CookBookService>();
+builder.Services.AddScoped<FoodItemService>();
+builder.Services.AddScoped<RecipeService>();
 
 var app = builder.Build();
 

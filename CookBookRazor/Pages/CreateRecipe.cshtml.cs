@@ -9,12 +9,14 @@ namespace CookBookRazor.Pages;
 public class CreateRecipe : PageModel
 {
     // Connecting to service & ILogger
-    private readonly CookBookService _cookBookService;
+    private readonly FoodItemService _foodItemService;
+    private readonly RecipeService _recipeService;
     private readonly ILogger<IndexModel> _logger;
-    public CreateRecipe(CookBookService cookBookService, ILogger<IndexModel> logger)
+    public CreateRecipe(FoodItemService foodItemService, ILogger<IndexModel> logger, RecipeService recipeService)
     {
-        _cookBookService = cookBookService;
+        _foodItemService = foodItemService;
         _logger = logger;
+        _recipeService = recipeService;
     }
     
     
@@ -31,7 +33,7 @@ public class CreateRecipe : PageModel
         // Getting all RecipeIngredients
         try
         {
-            FoodItems = _cookBookService.GetAllFoodItems();
+            FoodItems = _foodItemService.GetAllFoodItems();
         }
         catch (Exception ex)
         {
@@ -61,7 +63,7 @@ public class CreateRecipe : PageModel
         
         try
         {
-            _cookBookService.CreateRecipe(recipeToCreate);
+            _recipeService.CreateRecipe(recipeToCreate);
             TempData["successMessage"] = "Recipe Created Successfully!";
             return RedirectToPage("/CreateRecipe"); 
         }
