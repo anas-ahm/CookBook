@@ -26,6 +26,12 @@ public class RecipeService
         return _recipeRepo.Create(item);
     }
     
+    // GetById
+    public Recipe GetByIdRecipe(int id)
+    {
+        return _recipeRepo.GetById(id);
+    }
+    
         
     // GetAll
     public List<Recipe> GetAllRecipes()
