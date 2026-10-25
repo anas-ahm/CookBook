@@ -16,6 +16,8 @@ public class DBWorker
         }
 
         MySqlConnection connection = new MySqlConnection(connString);
+        connection.Open();
+        
         return connection;
     }
 }

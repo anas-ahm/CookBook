@@ -1,6 +1,67 @@
 @page
 @model CookBookRazor.Pages.CreateRecipe
 
-@
+@{
 }
+
+@if (TempData["successMessage"] != null)
+{
+    <div class="success-message">
+        @TempData["successMessage"]
+    </div>
+}
+
+<!-- Temp data error message-->
+@if (TempData["errorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["errorMessage"]
+    </div>
+}
+else if (TempData["errorMessage"] == null && TempData["sucessMessage"] == null)
+{
+    <div class="container">
+
+        <form method="post" asp-page-handler="CreateRecipe">
+
+            <label asp-for="recipeToCreate._name">Name</label>
+            <input asp-for="recipeToCreate._name"/>
+
+            <label asp-for="recipeToCreate._description">Description</label>
+            <input asp-for="recipeToCreate._description"/>
+
+            <label asp-for="recipeToCreate._instructions">Instructions</label>
+            <input asp-for="recipeToCreate._instructions"/>
+        
+            <h4>Ingredients</h4>
+        
+            <!-- Ingredient selection for Recipe-->
+            @for (int i = 0; i < 30; i++)
+            {
+                <div>
+                    <select name="recipeToCreate._ingredients[@i].FoodItem.Id">
+                        <option value="">-- Select food item --</option>
+                        @if (Model.FoodItems != null)
+                        {
+                            @foreach (var food in Model.FoodItems)
+                            {
+                                <option value="@food.Id">@food.Name</option>
+                            }   
+                        }
+                    </select>
+
+                    <input type="number" step="any" min="1"
+                           name="recipeToCreate._ingredients[@i].Grams"
+                           placeholder="Grams" />
+                </div>
+            }
+            
+            <button type="submit">Create</button>
+
+        </form>
+    </div>
+}
+
+
+
 

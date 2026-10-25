@@ -11,11 +11,5 @@ public class FoodItems : PageModel
     
     public void OnGet()
     {
-        // Connecting to Repo
-        FoodItemRepo _foodItemRepo = new FoodItemRepo();
-        CookBookService _cookBookService = new CookBookService(_foodItemRepo);
-        
-        // Getting fooditem list
-        allFoodItems = _cookBookService.GetAllFoodItems();
     }
 }

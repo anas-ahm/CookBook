@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using CookBookLibrary.Service;
 using CookBookLibrary.Model;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CookBookRazor.Pages;
 
@@ -15,10 +16,9 @@ public class RecipeDetails : PageModel
     }
 
     // List for RecipeIngredients objects to be shown in OnGet
-    public List<RecipeIngredient> recipeIngredients { get; set; }
+    public List<Recipe> recipeIngredients { get; set; }
     
     public void OnGet()
     {
-        
     }
 }

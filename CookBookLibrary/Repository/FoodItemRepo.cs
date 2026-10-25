@@ -18,7 +18,6 @@ public class FoodItemRepo : ICrud<FoodItem>
                      """;
 
         using MySqlConnection connString = _dbWorker.ConnectToDB();
-        connString.Open();
 
         MySqlCommand cmd = new MySqlCommand(sql, connString);
         
@@ -34,6 +33,8 @@ public class FoodItemRepo : ICrud<FoodItem>
 
         cmd.ExecuteNonQuery();
 
+        foodItem.Id = (int)cmd.LastInsertedId;
+        
         return foodItem;
     }
     
@@ -43,7 +44,6 @@ public class FoodItemRepo : ICrud<FoodItem>
         string sql = " SELECT * FROM FoodItem WHERE id = @id ";
 
         using MySqlConnection conn = _dbWorker.ConnectToDB();
-        conn.Open();
 
         using MySqlCommand cmd = new MySqlCommand(sql, conn);
         cmd.Parameters.AddWithValue("@id", id);
@@ -87,7 +87,6 @@ public class FoodItemRepo : ICrud<FoodItem>
         List<FoodItem> foodItems = new List<FoodItem>();
 
         using MySqlConnection conn = _dbWorker.ConnectToDB();
-        conn.Open();
 
         using MySqlCommand cmd = new MySqlCommand(sql, conn);
         using MySqlDataReader reader = cmd.ExecuteReader();
@@ -141,7 +140,6 @@ public class FoodItemRepo : ICrud<FoodItem>
                      """;
 
         using MySqlConnection conn = _dbWorker.ConnectToDB();
-        conn.Open();
 
         using MySqlCommand cmd = new MySqlCommand(sql, conn);
 
@@ -169,7 +167,6 @@ public class FoodItemRepo : ICrud<FoodItem>
         string sql = "DELETE FROM FoodItem WHERE id = @id";
 
         using MySqlConnection conn = _dbWorker.ConnectToDB();
-        conn.Open();
 
         using MySqlCommand cmd = new MySqlCommand(sql, conn);
         cmd.Parameters.AddWithValue("@id", id);

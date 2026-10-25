@@ -2,7 +2,7 @@ namespace CookBookLibrary.Repository;
 using CookBookLibrary.Model;
 using MySqlConnector;
 
-public class RecipeRepo : ICrud<Recipe>
+public class RecipeRepo : ICrud<Recipe>, IRecipeIngredient
 {
     private readonly DBWorker _dbWorker;
 
@@ -29,11 +29,11 @@ public class RecipeRepo : ICrud<Recipe>
             cmd.Parameters.AddWithValue("description", item._description);
             cmd.Parameters.AddWithValue("instructions", item._instructions);
 
+            cmd.ExecuteNonQuery();
+            
             // inserting the new id from DB into item
             int newId = (int)cmd.LastInsertedId;
             item._id = newId;
-
-            cmd.ExecuteNonQuery();
             
             // Running method helper that puts all ingredients into DB
             InsertRecipeIngredientsToDB(item);
@@ -60,11 +60,59 @@ public class RecipeRepo : ICrud<Recipe>
     public List<Recipe> GetAll()
     {
         throw new NotImplementedException();
+
     }
 
     public Recipe Delete(int id)
     {
         throw new NotImplementedException();
+    }
+
+    public List<RecipeIngredient> GetAllRecipeIngredients(List<FoodItem> item)
+    {
+        // the list we return 
+        List<RecipeIngredient> recipeIngredientsList = new List<RecipeIngredient>();
+        
+        try
+        {
+            string sql = "SELECT food_item_id, grams FROM recipe_ingredients";
+
+            using MySqlConnection conn = _dbWorker.ConnectToDB();
+
+            using MySqlCommand cmd = new MySqlCommand(sql, conn);
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            // List for all foodItems passed through from service layer
+            // we use this list to do a foreach loop in while reader.read()
+            // to match the foodItemId to the foodItem and put it inside the fooditem parameter.
+            List<FoodItem> foodItems = item;
+        
+            while (reader.Read())
+            {
+                RecipeIngredient recipeItem = new RecipeIngredient();
+                
+                int foodItemId = reader.GetInt32("food_item_id");
+
+                foreach (FoodItem food in foodItems)
+                {
+                    if (foodItemId == food.Id)
+                    {
+                        recipeItem.FoodItem = food;
+                    }
+                }
+
+                recipeItem.Grams = reader.GetDouble("grams");
+                
+                recipeIngredientsList.Add(recipeItem);
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Couldnt get recipe ingredients.", ex);
+        }
+
+        return recipeIngredientsList;
     }
 
     // helper that takes a recipe object, takes the ingredient list, and puts it into the DB

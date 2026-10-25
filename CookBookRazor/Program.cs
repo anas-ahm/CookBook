@@ -1,5 +1,6 @@
 using CookBookLibrary.Repository;
 using CookBookLibrary.Service;
+using CookBookLibrary.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 // Connecting to service from class library to be able to use Methods
-builder.Services.AddScoped<IFoodItemRepo, FoodItemRepo>();
+builder.Services.AddScoped<ICrud<FoodItem>, FoodItemRepo>();
+builder.Services.AddScoped<ICrud<Recipe>, RecipeRepo>();
+builder.Services.AddScoped<IRecipeIngredient, RecipeRepo>();
+builder.Services.AddScoped<DBWorker>();
 builder.Services.AddScoped<CookBookService>();
 
 var app = builder.Build();

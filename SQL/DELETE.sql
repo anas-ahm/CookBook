@@ -1,1 +1,2 @@
-DROP TABLE IF EXISTS food_item;
+DELETE FROM recipes WHERE id =
+                        1

@@ -10,6 +10,9 @@ public class RecipeIngredient
         FoodItem = foodItem;
         Grams = grams;
     }
+    
+    // Empty Constructor
+    public RecipeIngredient() {}
 
     public FoodItem FoodItem
     {
