@@ -41,5 +41,5 @@ CREATE TABLE recipe_ingredients (
 CREATE TABLE Admin (
     admin_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     username varchar(55) NOT NULL,
-    password varchar(55) NOT NULL
+    password varchar(255) NOT NULL
 )

@@ -65,13 +65,20 @@ public class CreateRecipe : PageModel
         {
             _recipeService.CreateRecipe(recipeToCreate);
             TempData["successMessage"] = "Recipe Created Successfully!";
-            return RedirectToPage("/CreateRecipe"); 
+            return RedirectToPage("/admin/CreateRecipe"); 
+        }
+        catch (InvalidOperationException ex)
+        {
+            _logger.LogWarning(ex, "Same food item used multiple times (PageModel)");
+            TempData["ErrorMessage"] = "You can't have the same food item twice!";
+            FoodItems = _foodItemService.GetAllFoodItems();
+            return Page();
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Couldnt crete recipe");
             TempData["errorMessage"] = "Couldn't create recipe";
-            return RedirectToPage("/CreateRecipe");
+            return RedirectToPage("/admin/CreateRecipe");
         }
     }
 }

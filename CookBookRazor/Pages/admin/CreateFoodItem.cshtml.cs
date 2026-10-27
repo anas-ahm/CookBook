@@ -31,13 +31,13 @@ public class CreateFoodItem : PageModel
         {
             _foodItemService.CreateFoodItem(foodItem);
             TempData["successMessage"] = "Food item created successfully!";
-            return RedirectToPage("/CreateFoodItem");
+            return RedirectToPage("/admin/CreateFoodItem");
         }
         catch (Exception ex)
         {
             _logger.LogError("Couldn't create fooditem");
             TempData["errorMessage"] = "Couldn't create food item, try again later :(";
-            return RedirectToPage("/CreateFoodItem");
+            return RedirectToPage("/admin/CreateFoodItem");
         }
     }
     

@@ -1,0 +1,83 @@
+@page "{id:int}"
+@using CookBookLibrary.Model
+@model CookBookRazor.Pages.EditRecipe
+
+
+@{
+}
+
+<form method="post">
+
+    <input type="hidden" asp-for="RecipeToEdit._id"/>
+
+    <div>
+        <label asp-for="RecipeToEdit._name">Name</label>
+        <input asp-for="RecipeToEdit._name"/>
+        <span asp-validation-for="RecipeToEdit._name" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="RecipeToEdit._description">Description</label>
+        <input asp-for="RecipeToEdit._description"/>
+        <span asp-validation-for="RecipeToEdit._description" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="RecipeToEdit._instructions">Instructions</label>
+        <input asp-for="RecipeToEdit._instructions"/>
+        <span asp-validation-for="RecipeToEdit._instructions" class="text-danger"></span>
+    </div>
+
+    <h4>Ingredients</h4>
+
+    <div id="ingredient-rows">
+        @for (int i = 0; i < Math.Max(Model.RecipeToEdit._ingredients.Count, 1); i++)
+        {
+            RecipeIngredient? current = i < Model.RecipeToEdit._ingredients.Count
+                ? Model.RecipeToEdit._ingredients[i]
+                : null;
+
+            <div class="ingredient-row">
+                <select name="RecipeToEdit._ingredients[@i].FoodItem.Id">
+                    <option value="">-- Select food item --</option>
+                    @if (Model.FoodItems != null)
+                    {
+                        @foreach (var food in Model.FoodItems)
+                        {
+                            <option value="@food.Id" selected="@(current?.FoodItem?.Id == food.Id)">@food.Name</option>
+                        }
+                    }
+                </select>
+
+                <input type="number" step="any" min="1"
+                       name="RecipeToEdit._ingredients[@i].Grams"
+                       value="@(current?.Grams)"
+                       placeholder="Grams"/>
+            </div>
+        }
+    </div>
+
+    <button type="button" id="add-ingredient">+ Add ingredient</button>
+
+    <button type="submit">Save</button>
+    <a asp-page="/Recipes">Cancel</a>
+
+</form>
+
+<script>
+    let nextIndex = @Math.Max(Model.RecipeToEdit._ingredients.Count, 1);
+
+    document.getElementById("add-ingredient").addEventListener("click", function () {
+        const container = document.getElementById("ingredient-rows");
+
+        // Copy the first row, give its fields the next index, and clear the values
+        const row = container.querySelector(".ingredient-row").cloneNode(true);
+        row.querySelectorAll("select, input").forEach(function (el) {
+            el.name = el.name.replace(/\[\d+\]/, "[" + nextIndex + "]");
+            el.value = "";
+        });
+
+        container.appendChild(row);
+        nextIndex++;
+    });
+</script>

@@ -4,6 +4,14 @@
       <ProjectReference Include="..\CookBookLibrary\CookBookLibrary.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <AdditionalFiles Include="Pages\admin\CreateFoodItem.cshtml" />
+      <AdditionalFiles Include="Pages\admin\CreateRecipe.cshtml" />
+      <AdditionalFiles Include="Pages\auth\Login.cshtml" />
+      <AdditionalFiles Include="Pages\auth\Logout.cshtml" />
+      <AdditionalFiles Include="Pages\auth\Signup.cshtml" />
+    </ItemGroup>
+
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
         <Nullable>enable</Nullable>

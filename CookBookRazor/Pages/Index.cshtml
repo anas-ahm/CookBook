@@ -7,10 +7,17 @@
     
 </div>
 
-<a asp-page="/CreateRecipe">Create Recipe</a>
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <h1>Hello Admin</h1>
+}
 
-<a asp-page="/CreateFoodItem">Create Food Items</a>
 
+<a asp-page="/admin/CreateRecipe">Create Recipe</a>
+
+<a asp-page="/admin/CreateFoodItem">Create Food Items</a>
+
+<a asp-page="/FoodItems">See all food items</a>
 
 <!-- See all Recipes-->
 <div class="container">
@@ -24,6 +31,7 @@
                 <h5>@recipe._name</h5>
                 <p>@recipe._description</p>
                 <a asp-page="/RecipeDetails" asp-route-id="@recipe._id">See Full Recipe</a>
+                <a asp-page="/admin/EditRecipe" asp-route-id="@recipe._id">Edit Recipe</a>
             </div>
         </div>
     }

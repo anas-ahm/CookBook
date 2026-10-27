@@ -41,6 +41,11 @@ public class RecipeRepo : ICrud<Recipe>, IRecipeIngredient
             InsertRecipeIngredientsToDB(item);
 
         }
+        catch (MySqlException ex) when (ex.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
+        {
+            // Same food item selected in more than one row
+            throw new InvalidOperationException("The same food item is used more than once in this recipe.", ex);
+        }
         catch (Exception ex)
         {
             throw new Exception("Cant create new Recipe", ex);
@@ -97,11 +102,66 @@ public class RecipeRepo : ICrud<Recipe>, IRecipeIngredient
         }
     }
 
-    public Recipe Update(Recipe newItem, int id)
-    {
-        throw new NotImplementedException();
+    public Recipe Update(Recipe newItem, int id) 
+    { 
+        try 
+        {
+        using MySqlConnection conn = _dbWorker.ConnectToDB();
+        using MySqlTransaction transaction = conn.BeginTransaction();
+
+        // 1. Update the recipe row
+        string updateSql = """
+                           UPDATE recipes
+                           SET name = @name, description = @description, instructions = @instructions
+                           WHERE id = @id
+                           """;
+
+        using MySqlCommand cmd = new MySqlCommand(updateSql, conn, transaction);
+        
+        cmd.Parameters.AddWithValue("name", newItem._name);
+        cmd.Parameters.AddWithValue("description", newItem._description);
+        cmd.Parameters.AddWithValue("instructions", newItem._instructions);
+        cmd.Parameters.AddWithValue("id", id);
+        cmd.ExecuteNonQuery();
+        
+        // 2. Remove the old ingredient rows for this recipe
+        string deleteSql = "DELETE FROM recipe_ingredients WHERE recipe_id = @id";
+
+        using MySqlCommand cmdDelete = new MySqlCommand(deleteSql, conn, transaction); 
+        cmdDelete.Parameters.AddWithValue("id", id); 
+        cmdDelete.ExecuteNonQuery();
+        
+        // 3. Insert the submitted ingredients
+        string insertSql = """
+                           INSERT INTO recipe_ingredients (recipe_id, food_item_id, grams)
+                           VALUES (@recipe_id, @food_item_id, @grams)
+                           """;
+
+        foreach (RecipeIngredient ingredient in newItem._ingredients)
+        {
+            using MySqlCommand cmdUpdate = new MySqlCommand(insertSql, conn, transaction);
+            cmdUpdate.Parameters.AddWithValue("recipe_id", id);
+            cmdUpdate.Parameters.AddWithValue("food_item_id", ingredient.FoodItem.Id);
+            cmdUpdate.Parameters.AddWithValue("grams", ingredient.Grams);
+            cmdUpdate.ExecuteNonQuery();
+        }
+
+        transaction.Commit();
+
+        newItem._id = id;
+        return newItem; 
+        
+        }
+        catch (MySqlException ex) when (ex.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
+        {
+            // Same food item selected in more than one row
+            throw new InvalidOperationException("The same food item is used more than once in this recipe.", ex);
+        }
+        catch (Exception ex) 
+        {
+        throw new Exception("Couldn't update recipe", ex); 
+        } 
     }
-    
 
     public List<Recipe> GetAll()
     {

@@ -1,0 +1,38 @@
+@page
+@model CookBookRazor.Pages.Signup
+
+@{
+}
+
+<div class="form-page form-page--auth">
+    <h1 class="form-page__title">Signup</h1>
+
+    <form method="post" class="form">
+        <div asp-validation-summary="ModelOnly" class="form__summary"></div>
+
+        <div class="form__field form__field--full">
+            <label asp-for="Input.Username">Username</label>
+            <input asp-for="Input.Username" autocomplete="username" />
+            <span asp-validation-for="Input.Username" class="text-danger"></span>
+        </div>
+
+        <div class="form__field">
+            <label asp-for="Input.Password">Adgangskode</label>
+            <input asp-for="Input.Password" type="password" autocomplete="new-password" />
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+        
+        <div class="form__field">
+            <label asp-for="Input.ConfirmPassword">Bekræft adgangskode</label>
+            <input asp-for="Input.ConfirmPassword" type="password" autocomplete="new-password" />
+            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+        </div>
+        
+        <div class="form__actions">
+            <button type="submit" class="btn btn--block">Sign up</button>
+        </div>
+        
+    </form>
+
+    <p class="form-page__footer">Already signed up? <a asp-page="/Login">Login here</a></p>
+</div>

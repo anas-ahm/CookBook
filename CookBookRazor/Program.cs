@@ -30,6 +30,9 @@ builder.Services.AddAuthorization(options =>
 // Connecting to service from class library to be able to use Methods
 builder.Services.AddScoped<ICrud<FoodItem>, FoodItemRepo>();
 builder.Services.AddScoped<ICrud<Recipe>, RecipeRepo>();
+builder.Services.AddScoped<ICrud<Admin>, AdminRepo>();  
+builder.Services.AddScoped<IAdmin, AdminRepo>();
+builder.Services.AddScoped<IAdminAuth, AdminAuthService>();
 builder.Services.AddScoped<IRecipeIngredient, RecipeRepo>();
 builder.Services.AddScoped<DBWorker>();
 builder.Services.AddScoped<FoodItemService>();

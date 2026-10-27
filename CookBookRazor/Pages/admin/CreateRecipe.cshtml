@@ -4,21 +4,8 @@
 @{
 }
 
-@if (TempData["successMessage"] != null)
-{
-    <div class="success-message">
-        @TempData["successMessage"]
-    </div>
-}
 
-<!-- Temp data error message-->
-@if (TempData["errorMessage"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["errorMessage"]
-    </div>
-}
-else if (TempData["errorMessage"] == null && TempData["sucessMessage"] == null)
+@if (TempData["errorMessage"] == null && TempData["sucessMessage"] == null)
 {
     <div class="container">
 
@@ -36,25 +23,26 @@ else if (TempData["errorMessage"] == null && TempData["sucessMessage"] == null)
             <h4>Ingredients</h4>
         
             <!-- Ingredient selection for Recipe-->
-            @for (int i = 0; i < 30; i++)
-            {
-                <div>
-                    <select name="recipeToCreate._ingredients[@i].FoodItem.Id">
+            <div id="ingredient-rows">
+                <div class="ingredient-row">
+                    <select name="recipeToCreate._ingredients[0].FoodItem.Id">
                         <option value="">-- Select food item --</option>
                         @if (Model.FoodItems != null)
                         {
                             @foreach (var food in Model.FoodItems)
                             {
                                 <option value="@food.Id">@food.Name</option>
-                            }   
+                            }
                         }
                     </select>
 
                     <input type="number" step="any" min="1"
-                           name="recipeToCreate._ingredients[@i].Grams"
+                           name="recipeToCreate._ingredients[0].Grams"
                            placeholder="Grams" />
                 </div>
-            }
+            </div>
+            
+            <button type="button" id="add-ingredient">+ Add ingredient</button>
             
             <button type="submit">Create</button>
 
@@ -63,5 +51,22 @@ else if (TempData["errorMessage"] == null && TempData["sucessMessage"] == null)
 }
 
 
+<!-- Script for add new ingredient row -->
+<script>
+    let nextIndex = 1;
 
+    document.getElementById("add-ingredient").addEventListener("click", function () {
+        const container = document.getElementById("ingredient-rows");
+
+        // Copy the first row, give its fields the next index, and clear the values
+        const row = container.querySelector(".ingredient-row").cloneNode(true);
+        row.querySelectorAll("select, input").forEach(function (el) {
+            el.name = el.name.replace(/\[\d+\]/, "[" + nextIndex + "]");
+            el.value = "";
+        });
+
+        container.appendChild(row);
+        nextIndex++;
+    });
+</script>
 

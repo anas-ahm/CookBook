@@ -1,8 +1,7 @@
 namespace CookBookLibrary.Repository;
 using CookBookLibrary.Model;
 
-public interface IAdminAuth
+public interface IAdmin
 {
     public Admin? GetAdminByUsername(string username);
-    
 }

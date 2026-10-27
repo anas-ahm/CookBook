@@ -4,20 +4,6 @@
 @{
 }
 
-@if (TempData["successMessage"] != null)
-{
-    <div class="success-message">
-        @TempData["successMessage"]
-    </div>
-}
-
-@if (TempData["errorMessage"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["errorMessage"]
-    </div>
-}
-
 <form method="post" asp-page-handler="CreateFoodItem">
     
     <div>

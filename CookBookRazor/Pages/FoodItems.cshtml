@@ -17,6 +17,8 @@
         <p>Sugar: @foodItem.Sugar g</p>
         <p>Fiber: @foodItem.Fiber g</p>
         <p>Salt: @foodItem.Salt g</p>
+        
+        <a asp-page="/admin/EditFoodItem" asp-route-id="@foodItem.Id">Edit Food Item</a>
     }
 }
 

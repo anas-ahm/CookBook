@@ -1,1 +1,1 @@
-SELECT * FROM recipe_ingredients;
+DROP TABLE Admin;

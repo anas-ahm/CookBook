@@ -5,7 +5,7 @@ using MySqlConnector;
 namespace CookBookLibrary.Repository;
 using CookBookLibrary.Model;
 
-public class AdminRepo : ICrud<Admin>, IAdminAuth
+public class AdminRepo : ICrud<Admin>, IAdmin
 {
     private readonly DBWorker _dbWorker;
 
@@ -72,7 +72,7 @@ public class AdminRepo : ICrud<Admin>, IAdminAuth
         try
         {
             string sql = """
-                         SELECT username, password
+                         SELECT admin_id, username, password
                          FROM Admin 
                          WHERE username = @username
                          """;
@@ -84,14 +84,19 @@ public class AdminRepo : ICrud<Admin>, IAdminAuth
 
             using MySqlDataReader reader = cmd.ExecuteReader();
 
-            Admin admin = new Admin();
-            
-            while (reader.Read())
+            if (!reader.Read())
             {
-                admin.Id = reader.GetInt32("admin_id");
-                admin.Username = reader.GetString("username");
-                admin.Password = reader.GetString("password");
+                return null;   
             }
+
+            Admin admin = new Admin();
+
+            return new Admin
+            {
+                Id = reader.GetInt32("admin_id"),
+                Username = reader.GetString("username"),
+                Password = reader.GetString("password")
+            };
 
             return admin;
         }

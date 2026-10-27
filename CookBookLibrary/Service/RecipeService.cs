@@ -32,6 +32,12 @@ public class RecipeService
         return _recipeRepo.GetById(id);
     }
     
+    // Update
+    public Recipe Update(Recipe recipe, int id)
+    {
+        return _recipeRepo.Update(recipe, id);
+    }
+    
         
     // GetAll
     public List<Recipe> GetAllRecipes()
