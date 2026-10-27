@@ -2,6 +2,7 @@
 <project version="4">
   <component name="DataSourcePerFileMappings">
     <file url="file://$PROJECT_DIR$/SQL/CREATE.sql" value="42df8376-4d1b-4a82-acf4-694cd517b8a8" />
+    <file url="file://$PROJECT_DIR$/SQL/Commands.sql" value="42df8376-4d1b-4a82-acf4-694cd517b8a8" />
     <file url="file://$PROJECT_DIR$/SQL/DELETE.sql" value="42df8376-4d1b-4a82-acf4-694cd517b8a8" />
     <file url="file://$PROJECT_DIR$/SQL/UPDATE.sql" value="42df8376-4d1b-4a82-acf4-694cd517b8a8" />
   </component>

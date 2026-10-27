@@ -4,4 +4,67 @@
 @{
 }
 
+@if (TempData["successMessage"] != null)
+{
+    <div class="success-message">
+        @TempData["successMessage"]
+    </div>
+}
+
+@if (TempData["errorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["errorMessage"]
+    </div>
+}
+
+<form method="post" asp-page-handler="CreateFoodItem">
+    
+    <div>
+        <label asp-for="foodItem.Name">Name</label>
+        <input asp-for="foodItem.Name" />
+    </div>
+
+    <div>
+        <label asp-for="foodItem.Calories">Calories (per 100 g)</label>
+        <input asp-for="foodItem.Calories" type="number" step="any" min="0" />
+    </div>
+
+    <div>
+        <label asp-for="foodItem.Protein">Protein (g)</label>
+        <input asp-for="foodItem.Protein" type="number" step="any" min="0" />
+    </div>
+
+    <div>
+        <label asp-for="foodItem.Fat">Fat (g)</label>
+        <input asp-for="foodItem.Fat" type="number" step="any" min="0" />
+    </div>
+
+    <div>
+        <label asp-for="foodItem.SaturatedFat">Saturated fat (g)</label>
+        <input asp-for="foodItem.SaturatedFat" type="number" step="any" min="0" />
+    </div>
+
+    <div>
+        <label asp-for="foodItem.Carbs">Carbs (g)</label>
+        <input asp-for="foodItem.Carbs" type="number" step="any" min="0" />
+    </div>
+
+    <div>
+        <label asp-for="foodItem.Sugar">Sugar (g)</label>
+        <input asp-for="foodItem.Sugar" type="number" step="any" min="0" />
+    </div>
+
+    <div>
+        <label asp-for="foodItem.Fiber">Fiber (g)</label>
+        <input asp-for="foodItem.Fiber" type="number" step="any" min="0" />
+    </div>
+
+    <div>
+        <label asp-for="foodItem.Salt">Salt (g)</label>
+        <input asp-for="foodItem.Salt" type="number" step="any" min="0" />
+    </div>
+    
+    <button type="submit">Create</button>
+</form>
 

@@ -37,3 +37,9 @@ CREATE TABLE recipe_ingredients (
                                     CONSTRAINT fk_ri_food_item FOREIGN KEY (food_item_id) REFERENCES FoodItem(id),
                                     CONSTRAINT chk_ri_grams    CHECK (grams > 0)
 );
+
+CREATE TABLE Admin (
+    admin_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    username varchar(55) NOT NULL,
+    password varchar(55) NOT NULL
+)

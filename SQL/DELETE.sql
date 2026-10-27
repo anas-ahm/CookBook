@@ -1,1 +1,1 @@
-DELETE FROM recipe_ingredients
+DELETE FROM recipes
