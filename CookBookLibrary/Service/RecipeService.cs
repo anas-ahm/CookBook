@@ -38,6 +38,12 @@ public class RecipeService
         return _recipeRepo.Update(recipe, id);
     }
     
+    // Delete
+    public Recipe Delete(int id)
+    {
+        return _recipeRepo.Delete(id);
+    }
+    
         
     // GetAll
     public List<Recipe> GetAllRecipes()

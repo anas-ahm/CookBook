@@ -365,6 +365,39 @@ a:hover {
   margin-bottom: 0;
 }
 
+/* Delete section under the edit forms (EditRecipe, EditFoodItem) */
+.danger-zone {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-m) var(--space-l);
+  margin-top: var(--space-xl);
+  padding: var(--space-l) clamp(1.25rem, 3vw, 2rem);
+  background-color: rgb(243 220 211 / 0.4);
+  border: 1px solid #E2B4A6;
+  border-radius: var(--radius-m);
+}
+
+.danger-zone__text {
+  flex: 1 1 16rem;
+}
+
+.danger-zone__title {
+  margin: 0 0 var(--space-2xs);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--color-tomato-dark);
+}
+
+.danger-zone__body {
+  margin: 0;
+  font-size: var(--step--1);
+  color: var(--color-espresso-soft);
+}
+
 /* Messages from TempData (set in _Layout) */
 .flash {
   margin-bottom: var(--space-l);
@@ -428,6 +461,23 @@ a:hover {
   color: var(--color-espresso);
   background-color: var(--color-linen);
   border-color: var(--color-espresso-soft);
+}
+
+/* Destructive: outlined in red, fills on hover */
+.btn--danger {
+  color: var(--color-tomato);
+  background-color: transparent;
+  border-color: var(--color-tomato);
+}
+
+.btn--danger:hover {
+  color: var(--color-linen);
+  background-color: var(--color-tomato);
+  border-color: var(--color-tomato);
+}
+
+.btn--danger:focus-visible {
+  outline-color: var(--color-tomato);
 }
 
 .btn--small {

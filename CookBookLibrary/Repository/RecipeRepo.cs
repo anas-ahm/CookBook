@@ -199,7 +199,36 @@ public class RecipeRepo : ICrud<Recipe>, IRecipeIngredient
 
     public Recipe Delete(int id)
     {
-        throw new NotImplementedException();
+        // Get the recipe first so it can be returned (like FoodItemRepo.Delete)
+        Recipe recipeToDelete = GetById(id);
+
+        try
+        {
+            using MySqlConnection conn = _dbWorker.ConnectToDB();
+            using MySqlTransaction transaction = conn.BeginTransaction();
+
+            // 1. Remove the ingredient rows for this recipe (foreign key)
+            string deleteIngredientsSql = "DELETE FROM recipe_ingredients WHERE recipe_id = @id";
+
+            using MySqlCommand cmdIngredients = new MySqlCommand(deleteIngredientsSql, conn, transaction);
+            cmdIngredients.Parameters.AddWithValue("id", id);
+            cmdIngredients.ExecuteNonQuery();
+
+            // 2. Remove the recipe itself
+            string deleteRecipeSql = "DELETE FROM recipes WHERE id = @id";
+
+            using MySqlCommand cmdRecipe = new MySqlCommand(deleteRecipeSql, conn, transaction);
+            cmdRecipe.Parameters.AddWithValue("id", id);
+            cmdRecipe.ExecuteNonQuery();
+
+            transaction.Commit();
+
+            return recipeToDelete;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Couldn't delete recipe", ex);
+        }
     }
 
     public List<RecipeIngredient> GetAllRecipeIngredients(List<FoodItem> item)

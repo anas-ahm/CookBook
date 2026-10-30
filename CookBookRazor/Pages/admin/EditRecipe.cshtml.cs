@@ -79,4 +79,22 @@ public class EditRecipe : PageModel
             return Page();
         }
     }
+    
+    public IActionResult OnPostDelete(int id)
+    {
+        try
+        {
+            Recipe recipe = _recipeService.GetByIdRecipe(id);
+            TempData["SuccessMessage"] =$"{recipe._name} has been deleted successfully!";
+            _recipeService.Delete(id);
+            return RedirectToPage("/Index");
+        }
+        
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Cant delete the recipe (PageModel)");
+            TempData["ErrorMessage"] = "Couldn't delete the recipe at this moment, try again later";
+            return Page();
+        }
+    }
 }

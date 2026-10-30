@@ -48,4 +48,22 @@ public class EditFoodItem : PageModel
             return Page();
         }
     }
+
+    public IActionResult OnPostDelete(int id)
+    {
+        try
+        {
+            FoodItem foodItem = _foodItemService.GetFoodItemById(id);
+            TempData["SuccessMessage"] =$"{foodItem.Name} has been deleted successfully!";
+            _foodItemService.DeleteFoodItem(id);
+            return RedirectToPage("/Index");
+        }
+        
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Cant delete the food item (PageModel)");
+            TempData["ErrorMessage"] = "Couldn't delete the food item at this moment, try again later";
+            return Page();
+        }
+    }
 }

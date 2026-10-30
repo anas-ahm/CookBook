@@ -5,7 +5,7 @@ public class Recipe
     public int _id { get; set; }
     public string _name { get; set; }
     public string _description { get; set; }
-    public List<RecipeIngredient> _ingredients { get; set; }
+    public List<RecipeIngredient> _ingredients { get; set; } = new List<RecipeIngredient>();
     public string _instructions { get; set; }
     
     // Constructor

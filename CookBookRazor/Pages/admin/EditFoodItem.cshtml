@@ -1,8 +1,8 @@
-@page
+@page "{id:int}"
 @model CookBookRazor.Pages.EditFoodItem
 
 @{
-    ViewData["Title"] = "Edit food item";
+    
 }
 
 <div class="form-page">
@@ -85,4 +85,19 @@
         </div>
 
     </form>
+
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <section class="danger-zone" aria-labelledby="delete-food-title">
+            <div class="danger-zone__text">
+                <h2 id="delete-food-title" class="danger-zone__title">Delete this food item</h2>
+                <p class="danger-zone__body">The food item is removed for good. This cannot be undone.</p>
+            </div>
+
+            <form method="post" asp-page-handler="Delete"
+                  onsubmit="return confirm('Delete this food item? This cannot be undone.');">
+                <button type="submit" class="btn btn--danger">Delete food item</button>
+            </form>
+        </section>
+    }
 </div>

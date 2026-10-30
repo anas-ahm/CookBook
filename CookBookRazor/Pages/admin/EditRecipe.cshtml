@@ -37,10 +37,10 @@
             <p class="ingredients__hint">Choose a food item and how many grams the recipe uses.</p>
 
             <div id="ingredient-rows" class="ingredients__rows">
-                @for (int i = 0; i < Math.Max(Model.RecipeToEdit._ingredients.Count, 1); i++)
+                @for (int i = 0; i < Math.Max(Model.RecipeToEdit._ingredients?.Count ?? 0, 1); i++)
                 {
-                    RecipeIngredient? current = i < Model.RecipeToEdit._ingredients.Count
-                        ? Model.RecipeToEdit._ingredients[i]
+                    RecipeIngredient? current = i < (Model.RecipeToEdit._ingredients?.Count ?? 0)
+                        ? Model.RecipeToEdit._ingredients![i]
                         : null;
 
                     <div class="ingredient-row">
@@ -78,10 +78,25 @@
         </div>
 
     </form>
+
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <section class="danger-zone" aria-labelledby="delete-recipe-title">
+            <div class="danger-zone__text">
+                <h2 id="delete-recipe-title" class="danger-zone__title">Delete this recipe</h2>
+                <p class="danger-zone__body">The recipe is removed for good. This cannot be undone.</p>
+            </div>
+
+            <form method="post" asp-page-handler="Delete"
+                  onsubmit="return confirm('Delete this recipe? This cannot be undone.');">
+                <button type="submit" class="btn btn--danger">Delete recipe</button>
+            </form>
+        </section>
+    }
 </div>
 
 <script>
-    let nextIndex = @Math.Max(Model.RecipeToEdit._ingredients.Count, 1);
+    let nextIndex = @Math.Max(Model.RecipeToEdit._ingredients?.Count ?? 0, 1);
 
     document.getElementById("add-ingredient").addEventListener("click", function () {
         const container = document.getElementById("ingredient-rows");
