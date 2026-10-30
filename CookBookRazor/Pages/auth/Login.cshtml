@@ -5,19 +5,19 @@
     ViewData["Title"] = "Log ind";
 }
 
-<div class="form-page form-page--auth">
+<div class="form-page form-page--auth surface">
     <h1 class="form-page__title">Log ind</h1>
 
     <form method="post" class="form">
         <div asp-validation-summary="ModelOnly" class="form__summary"></div>
 
-        <div class="form__field form__field--full">
+        <div class="form__field">
             <label asp-for="Input.Username">Username</label>
             <input asp-for="Input.Username" autocomplete="username" autofocus />
             <span asp-validation-for="Input.Username" class="text-danger"></span>
         </div>
 
-        <div class="form__field form__field--full">
+        <div class="form__field">
             <label asp-for="Input.Password">Password</label>
             <input asp-for="Input.Password" type="password" autocomplete="current-password" />
             <span asp-validation-for="Input.Password" class="text-danger"></span>
@@ -27,8 +27,8 @@
             <button type="submit" class="btn btn--block">Log ind</button>
         </div>
     </form>
-    
-    <p>Or</p>
-    
-    <a asp-page="/Index">Continue as guest</a>
+
+    <p class="auth-divider">Or</p>
+
+    <a class="btn btn--ghost btn--block" asp-page="/Index">Continue as guest</a>
 </div>

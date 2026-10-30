@@ -1,0 +1,14 @@
+/* Signup.cshtml – sign up card
+   Scoped to this page by CSS isolation. The card, fields and buttons come
+   from site.css (.form-page--auth, .form, .btn). The two password fields sit
+   side by side through .form__field--half. */
+
+.signup__footer {
+    max-width: none;
+    margin: var(--space-l) 0 0;
+    padding-top: var(--space-l);
+    font-size: var(--step--1);
+    color: var(--color-espresso-soft);
+    text-align: center;
+    border-top: 1px solid var(--color-sand);
+}

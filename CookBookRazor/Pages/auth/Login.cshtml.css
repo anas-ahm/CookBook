@@ -1,0 +1,21 @@
+/* Login.cshtml – log in card
+   Scoped to this page by CSS isolation. The card, fields and buttons come
+   from site.css (.form-page--auth, .form, .btn). */
+
+/* "Or" with a line on each side */
+.auth-divider {
+    display: flex;
+    align-items: center;
+    gap: var(--space-s);
+    max-width: none;
+    margin: var(--space-l) 0;
+    font-size: var(--step--1);
+    color: var(--color-espresso-soft);
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: "";
+    flex: 1;
+    border-top: 1px solid var(--color-sand);
+}

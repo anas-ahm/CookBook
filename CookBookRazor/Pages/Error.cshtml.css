@@ -1,0 +1,28 @@
+/* Error.cshtml – error page
+   Scoped to this page by CSS isolation. */
+
+.error-page {
+  max-width: 46rem;
+}
+
+.error-page__title {
+  color: var(--color-tomato);
+}
+
+.error-page__request {
+  margin-bottom: var(--space-xl);
+}
+
+.error-page__dev {
+  margin-top: var(--space-xl);
+}
+
+.error-page__dev-title {
+  font-family: var(--font-body);
+  font-size: var(--step-1);
+  font-weight: 700;
+}
+
+.error-page__dev > :last-child {
+  margin-bottom: 0;
+}

@@ -1,0 +1,124 @@
+/* RecipeDetails.cshtml – one recipe
+   Scoped to this page by CSS isolation. The nutrition label itself is shared
+   and lives in site.css; this file only places it on the page. */
+
+.recipe__topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+  margin-bottom: var(--space-l);
+}
+
+/* Header: title + description, with the plate next to it */
+.recipe__header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-l) var(--space-xl);
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-xl);
+  border-bottom: 1px solid var(--color-sand);
+}
+
+.recipe__title {
+  margin-bottom: var(--space-s);
+}
+
+.recipe__description {
+  margin-bottom: 0;
+}
+
+.recipe__plate {
+  order: -1;
+  width: 7.5rem;
+  aspect-ratio: 1;
+  border: 1px solid var(--color-sand);
+  border-radius: var(--radius-m);
+}
+
+.recipe__plate .plate {
+  width: 72%;
+  font-size: 2.4rem;
+}
+
+/* For when recipes get real photos */
+.recipe__image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-m);
+}
+
+@media (min-width: 48rem) {
+  .recipe__header {
+    grid-template-columns: minmax(0, 1fr) 15rem;
+  }
+
+  .recipe__plate {
+    order: 0;
+    width: auto;
+  }
+
+  .recipe__plate .plate {
+    font-size: 4rem;
+  }
+}
+
+/* Body: ingredients + instructions, with the nutrition label beside them */
+.recipe__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-xl);
+}
+
+@media (min-width: 56rem) {
+  .recipe__body {
+    grid-template-columns: minmax(0, 1fr) 19rem;
+    align-items: start;
+    gap: var(--space-2xl);
+  }
+
+  .recipe__aside {
+    position: sticky;
+    top: var(--space-l);
+  }
+}
+
+.recipe__section + .recipe__section {
+  margin-top: var(--space-xl);
+}
+
+.recipe__heading {
+  font-size: var(--step-2);
+}
+
+.ingredient-list {
+  max-width: 40rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--color-sand);
+}
+
+.ingredient-list__item {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-m);
+  padding-block: 0.6rem;
+  border-bottom: 1px solid var(--color-sand);
+}
+
+.ingredient-list__amount {
+  white-space: nowrap;
+  color: var(--color-espresso-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Keeps the line breaks typed into the instructions field */
+.recipe__instructions {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  white-space: pre-line;
+}

@@ -3,54 +3,65 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>@ViewData["Title"] - CookBookRazor</title>
+    <title>@ViewData["Title"] - CookBook</title>
     <script type="importmap"></script>
+
+    <!-- Fonts: Young Serif (headings) + Archivo (text) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Young+Serif&display=swap"/>
+
+    <!-- Shared styles -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <!-- Page styles: every Page.cshtml.css file, bundled automatically by ASP.NET -->
     <link rel="stylesheet" href="~/CookBookRazor.styles.css" asp-append-version="true"/>
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to content</a>
+
 <header class="site-header">
-<a class="site-header__brand" asp-page="/Index">CookBook</a>
+    <div class="container site-header__inner">
+        <a class="site-header__brand" asp-page="/Index">Anas's CookBook</a>
 
-<nav class="site-header__nav">
-    <a asp-page="/FoodItems">Food items</a>
+        <nav class="site-header__nav" aria-label="Main">
+            <a asp-page="/Index">Recipes</a>
+            <a asp-page="/FoodItems">Food items</a>
 
-    @if (User.Identity?.IsAuthenticated == true)
-    {
-        <li><a asp-page="/auth/Logout">Logout</a></li>
-    }
-    else
-    {
-        <a asp-page="/auth/Login">Login</a>
-    }
-    
-</nav>
-
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <a asp-page="/auth/Logout">Logout</a>
+            }
+            else
+            {
+                <a asp-page="/auth/Login">Login</a>
+            }
+        </nav>
+    </div>
 </header>
 
-<div class="container">
-    <main role="main" class="pb-3">
+<main id="main" class="site-main">
+    <div class="container">
 
         @if (TempData["successMessage"] != null)
         {
-            <div class="success-message">
+            <div class="flash flash--success" role="status">
                 @TempData["successMessage"]
             </div>
         }
 
         @if (TempData["errorMessage"] != null)
         {
-            <div class="alert alert-danger">
+            <div class="flash flash--error" role="alert">
                 @TempData["errorMessage"]
             </div>
         }
 
         @RenderBody()
-    </main>
-</div>
+    </div>
+</main>
 
-<footer class="border-top footer text-muted">
+<footer class="site-footer">
     <div class="container">
         &copy; 2026 - CookBookRazor - <a asp-area="" asp-page="/Privacy">Privacy</a>
     </div>

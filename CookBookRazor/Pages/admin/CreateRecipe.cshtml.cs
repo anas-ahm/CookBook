@@ -12,11 +12,14 @@ public class CreateRecipe : PageModel
     private readonly FoodItemService _foodItemService;
     private readonly RecipeService _recipeService;
     private readonly ILogger<CreateRecipe> _logger;
-    public CreateRecipe(FoodItemService foodItemService, ILogger<CreateRecipe> logger, RecipeService recipeService)
+    private readonly IWebHostEnvironment _env;
+    
+    public CreateRecipe(FoodItemService foodItemService, ILogger<CreateRecipe> logger, RecipeService recipeService, IWebHostEnvironment env)
     {
         _foodItemService = foodItemService;
         _logger = logger;
         _recipeService = recipeService;
+        _env = env;
     }
     
     
@@ -26,7 +29,12 @@ public class CreateRecipe : PageModel
     // Parameters for building Recipe Object
     [BindProperty] public Recipe recipeToCreate { get; set; } = new Recipe();
     
+    // Parameter for saving image
+    [BindProperty] public IFormFile? image { get; set; }
     
+    // allowed image formats
+    private static readonly string[] AllowedExtensions = { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+    private const long MaxBytes = 5 * 1024 * 1024;
     
     public void OnGet()
     {
@@ -64,6 +72,26 @@ public class CreateRecipe : PageModel
         try
         {
             _recipeService.CreateRecipe(recipeToCreate);
+
+            if (image != null || image.Length != 0)
+            {
+                
+                if (image.Length > MaxBytes)
+                {
+                    TempData["errorMessage"] = "File is too large (max 5 MB).";
+                    return Page();
+                }
+                
+                var ext = Path.GetExtension(image.FileName).ToLowerInvariant();
+                if (!AllowedExtensions.Contains(ext))
+                {
+                    TempData["errorMessage"] = "Only image files are allowed.";
+                    return Page();
+                }
+                
+            }
+            
+            
             TempData["successMessage"] = "Recipe Created Successfully!";
             return RedirectToPage("/admin/CreateRecipe"); 
         }

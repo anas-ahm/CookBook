@@ -1,0 +1,15 @@
+/* EditFoodItem.cshtml – edit food item form
+   Scoped to this page by CSS isolation. Inputs and labels are styled in
+   site.css (they use asp-for, so scoped styles can't reach them directly). */
+
+/* The eight nutrition fields: 2 per row on phones, 4 per row on wider screens */
+.nutrient-group__fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 7.5rem), 1fr));
+  gap: var(--space-m);
+}
+
+/* Validation messages can be long; keep them from stretching the grid */
+.nutrient-group__fields ::deep .field-validation-error {
+  overflow-wrap: anywhere;
+}

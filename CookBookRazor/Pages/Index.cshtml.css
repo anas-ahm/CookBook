@@ -1,0 +1,103 @@
+/* Index.cshtml – recipe overview
+   Scoped to this page by CSS isolation. Links made with asp-page are tag
+   helpers and don't get the scope attribute, so they are styled through the
+   shared .btn classes or reached from a plain parent with ::deep. */
+
+/* Intro: title on the left, admin actions on the right */
+.home-intro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-l) var(--space-xl);
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-l);
+  border-bottom: 1px solid var(--color-sand);
+}
+
+.home-intro__greeting {
+  margin-bottom: var(--space-2xs);
+  font-weight: 600;
+  color: var(--color-basil);
+}
+
+.home-intro__title {
+  margin-bottom: var(--space-xs);
+}
+
+.home-intro__lead {
+  margin-bottom: 0;
+}
+
+.home-intro__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-s);
+}
+
+/* Recipe cards */
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+  gap: var(--space-l);
+}
+
+.recipe-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--color-linen);
+  border: 1px solid var(--color-sand);
+  border-radius: var(--radius-m);
+}
+
+.recipe-card__media {
+  border-bottom: 1px solid var(--color-sand);
+}
+
+/* For when recipes get real photos */
+.recipe-card__image {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-bottom: 1px solid var(--color-sand);
+}
+
+.recipe-card__body {
+  flex: 1;
+  padding: var(--space-l) var(--space-l) var(--space-s);
+}
+
+.recipe-card__title {
+  margin-bottom: var(--space-xs);
+  font-size: var(--step-2);
+}
+
+.recipe-card__description {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: var(--color-espresso-soft);
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.recipe-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+  padding: var(--space-s) var(--space-l) var(--space-l);
+}
+
+.recipe-card__actions ::deep .recipe-card__edit {
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--color-espresso-soft);
+}
+
+.recipe-card__actions ::deep .recipe-card__edit:hover {
+  color: var(--color-espresso);
+}

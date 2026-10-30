@@ -2,67 +2,87 @@
 @model CookBookRazor.Pages.EditFoodItem
 
 @{
+    ViewData["Title"] = "Edit food item";
 }
 
-<form method="post">
-    
-    <input type="hidden" asp-for="FoodItemToEdit.Id"/>
+<div class="form-page">
 
-    <div>
-        <label asp-for="FoodItemToEdit.Name">Name</label>
-        <input asp-for="FoodItemToEdit.Name"/>
-        <span asp-validation-for="FoodItemToEdit.Name" class="text-danger"></span>
-    </div>
+    <header class="page-header">
+        <div class="page-header__text">
+            <a class="back-link" asp-page="/FoodItems">All food items</a>
+            <h1>Edit food item</h1>
+            <p class="lead">All values are per 100 g.</p>
+        </div>
+    </header>
 
-    <div>
-        <label asp-for="FoodItemToEdit.Calories">Calories (kcal per 100 g)</label>
-        <input asp-for="FoodItemToEdit.Calories" type="number" step="any" min="0"/>
-        <span asp-validation-for="FoodItemToEdit.Calories" class="text-danger"></span>
-    </div>
+    <form method="post" class="form surface">
 
-    <div>
-        <label asp-for="FoodItemToEdit.Protein">Protein (g)</label>
-        <input asp-for="FoodItemToEdit.Protein" type="number" step="any" min="0"/>
-        <span asp-validation-for="FoodItemToEdit.Protein" class="text-danger"></span>
-    </div>
+        <input type="hidden" asp-for="FoodItemToEdit.Id"/>
 
-    <div>
-        <label asp-for="FoodItemToEdit.Fat">Fat (g)</label>
-        <input asp-for="FoodItemToEdit.Fat" type="number" step="any" min="0"/>
-        <span asp-validation-for="FoodItemToEdit.Fat" class="text-danger"></span>
-    </div>
+        <div class="form__field">
+            <label asp-for="FoodItemToEdit.Name">Name</label>
+            <input asp-for="FoodItemToEdit.Name"/>
+            <span asp-validation-for="FoodItemToEdit.Name" class="text-danger"></span>
+        </div>
 
-    <div>
-        <label asp-for="FoodItemToEdit.SaturatedFat">Saturated fat (g)</label>
-        <input asp-for="FoodItemToEdit.SaturatedFat" type="number" step="any" min="0"/>
-        <span asp-validation-for="FoodItemToEdit.SaturatedFat" class="text-danger"></span>
-    </div>
+        <fieldset class="nutrient-group">
+            <legend>Nutrition per 100 g</legend>
 
-    <div>
-        <label asp-for="FoodItemToEdit.Carbs">Carbs (g)</label>
-        <input asp-for="FoodItemToEdit.Carbs" type="number" step="any" min="0"/>
-        <span asp-validation-for="FoodItemToEdit.Carbs" class="text-danger"></span>
-    </div>
+            <div class="nutrient-group__fields">
+                <div class="form__field">
+                    <label asp-for="FoodItemToEdit.Calories">Calories (kcal)</label>
+                    <input asp-for="FoodItemToEdit.Calories" type="number" step="any" min="0"/>
+                    <span asp-validation-for="FoodItemToEdit.Calories" class="text-danger"></span>
+                </div>
 
-    <div>
-        <label asp-for="FoodItemToEdit.Sugar">Sugar (g)</label>
-        <input asp-for="FoodItemToEdit.Sugar" type="number" step="any" min="0"/>
-        <span asp-validation-for="FoodItemToEdit.Sugar" class="text-danger"></span>
-    </div>
+                <div class="form__field">
+                    <label asp-for="FoodItemToEdit.Protein">Protein (g)</label>
+                    <input asp-for="FoodItemToEdit.Protein" type="number" step="any" min="0"/>
+                    <span asp-validation-for="FoodItemToEdit.Protein" class="text-danger"></span>
+                </div>
 
-    <div>
-        <label asp-for="FoodItemToEdit.Fiber">Fiber (g)</label>
-        <input asp-for="FoodItemToEdit.Fiber" type="number" step="any" min="0"/>
-        <span asp-validation-for="FoodItemToEdit.Fiber" class="text-danger"></span>
-    </div>
+                <div class="form__field">
+                    <label asp-for="FoodItemToEdit.Fat">Fat (g)</label>
+                    <input asp-for="FoodItemToEdit.Fat" type="number" step="any" min="0"/>
+                    <span asp-validation-for="FoodItemToEdit.Fat" class="text-danger"></span>
+                </div>
 
-    <div>
-        <label asp-for="FoodItemToEdit.Salt">Salt (g)</label>
-        <input asp-for="FoodItemToEdit.Salt" type="number" step="any" min="0"/>
-        <span asp-validation-for="FoodItemToEdit.Salt" class="text-danger"></span>
-    </div>
+                <div class="form__field">
+                    <label asp-for="FoodItemToEdit.SaturatedFat">Saturated fat (g)</label>
+                    <input asp-for="FoodItemToEdit.SaturatedFat" type="number" step="any" min="0"/>
+                    <span asp-validation-for="FoodItemToEdit.SaturatedFat" class="text-danger"></span>
+                </div>
 
-    <button type="submit">Save</button>
-    <a asp-page="/FoodItems">Cancel</a>
+                <div class="form__field">
+                    <label asp-for="FoodItemToEdit.Carbs">Carbs (g)</label>
+                    <input asp-for="FoodItemToEdit.Carbs" type="number" step="any" min="0"/>
+                    <span asp-validation-for="FoodItemToEdit.Carbs" class="text-danger"></span>
+                </div>
 
-</form>
+                <div class="form__field">
+                    <label asp-for="FoodItemToEdit.Sugar">Sugar (g)</label>
+                    <input asp-for="FoodItemToEdit.Sugar" type="number" step="any" min="0"/>
+                    <span asp-validation-for="FoodItemToEdit.Sugar" class="text-danger"></span>
+                </div>
+
+                <div class="form__field">
+                    <label asp-for="FoodItemToEdit.Fiber">Fiber (g)</label>
+                    <input asp-for="FoodItemToEdit.Fiber" type="number" step="any" min="0"/>
+                    <span asp-validation-for="FoodItemToEdit.Fiber" class="text-danger"></span>
+                </div>
+
+                <div class="form__field">
+                    <label asp-for="FoodItemToEdit.Salt">Salt (g)</label>
+                    <input asp-for="FoodItemToEdit.Salt" type="number" step="any" min="0"/>
+                    <span asp-validation-for="FoodItemToEdit.Salt" class="text-danger"></span>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="form__actions">
+            <button type="submit" class="btn">Save changes</button>
+            <a class="btn btn--ghost" asp-page="/FoodItems">Cancel</a>
+        </div>
+
+    </form>
+</div>

@@ -2,53 +2,73 @@
 @model CookBookRazor.Pages.CreateRecipe
 
 @{
+    ViewData["Title"] = "Create recipe";
 }
 
+<div class="form-page">
 
-@if (TempData["errorMessage"] == null && TempData["sucessMessage"] == null)
-{
-    <div class="container">
+    <header class="page-header">
+        <div class="page-header__text">
+            <a class="back-link" asp-page="/Index">All recipes</a>
+            <h1>Create recipe</h1>
+            <p class="lead">Name the recipe, add the food items it uses, and write down the steps.</p>
+        </div>
+    </header>
 
-        <form method="post" asp-page-handler="CreateRecipe">
+    @if (TempData["errorMessage"] == null && TempData["sucessMessage"] == null)
+    {
+        <form method="post" asp-page-handler="CreateRecipe" class="form surface">
 
-            <label asp-for="recipeToCreate._name">Name</label>
-            <input asp-for="recipeToCreate._name"/>
-
-            <label asp-for="recipeToCreate._description">Description</label>
-            <input asp-for="recipeToCreate._description"/>
-
-            <label asp-for="recipeToCreate._instructions">Instructions</label>
-            <input asp-for="recipeToCreate._instructions"/>
-        
-            <h4>Ingredients</h4>
-        
-            <!-- Ingredient selection for Recipe-->
-            <div id="ingredient-rows">
-                <div class="ingredient-row">
-                    <select name="recipeToCreate._ingredients[0].FoodItem.Id">
-                        <option value="">-- Select food item --</option>
-                        @if (Model.FoodItems != null)
-                        {
-                            @foreach (var food in Model.FoodItems)
-                            {
-                                <option value="@food.Id">@food.Name</option>
-                            }
-                        }
-                    </select>
-
-                    <input type="number" step="any" min="1"
-                           name="recipeToCreate._ingredients[0].Grams"
-                           placeholder="Grams" />
-                </div>
+            <div class="form__field">
+                <label asp-for="recipeToCreate._name">Name</label>
+                <input asp-for="recipeToCreate._name"/>
             </div>
-            
-            <button type="button" id="add-ingredient">+ Add ingredient</button>
-            
-            <button type="submit">Create</button>
+
+            <div class="form__field">
+                <label asp-for="recipeToCreate._description">Description</label>
+                <textarea asp-for="recipeToCreate._description" rows="2"></textarea>
+            </div>
+
+            <!-- Ingredient selection for Recipe -->
+            <fieldset class="ingredients">
+                <legend>Ingredients</legend>
+                <p class="ingredients__hint">Choose a food item and how many grams the recipe uses.</p>
+
+                <div id="ingredient-rows" class="ingredients__rows">
+                    <div class="ingredient-row">
+                        <select name="recipeToCreate._ingredients[0].FoodItem.Id" aria-label="Food item">
+                            <option value="">-- Select food item --</option>
+                            @if (Model.FoodItems != null)
+                            {
+                                @foreach (var food in Model.FoodItems)
+                                {
+                                    <option value="@food.Id">@food.Name</option>
+                                }
+                            }
+                        </select>
+
+                        <input type="number" step="any" min="1"
+                               name="recipeToCreate._ingredients[0].Grams"
+                               placeholder="Grams" aria-label="Grams" />
+                    </div>
+                </div>
+
+                <button type="button" id="add-ingredient" class="btn btn--ghost btn--small">+ Add ingredient</button>
+            </fieldset>
+
+            <div class="form__field">
+                <label asp-for="recipeToCreate._instructions">Instructions</label>
+                <textarea asp-for="recipeToCreate._instructions" rows="8"></textarea>
+            </div>
+
+            <div class="form__actions">
+                <button type="submit" class="btn">Create recipe</button>
+                <a class="btn btn--ghost" asp-page="/Index">Cancel</a>
+            </div>
 
         </form>
-    </div>
-}
+    }
+</div>
 
 
 <!-- Script for add new ingredient row -->
@@ -69,4 +89,3 @@
         nextIndex++;
     });
 </script>
-

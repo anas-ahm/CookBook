@@ -1,38 +1,68 @@
 ﻿@page
 @model IndexModel
 @using CookBookLibrary.Model
-@{}
-
-<div class="container">
-    
-</div>
-
-@if (User.Identity?.IsAuthenticated == true)
-{
-    <h1>Hello Admin</h1>
+@{
+    ViewData["Title"] = "Recipes";
 }
 
+<section class="home-intro">
+    <div class="home-intro__text">
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <p class="home-intro__greeting">Hello Admin</p>
+        }
+        <h1 class="home-intro__title">Recipes</h1>
+        <p class="lead home-intro__lead">Pick a recipe to see its ingredients, nutrition and instructions.</p>
+    </div>
 
-<a asp-page="/admin/CreateRecipe">Create Recipe</a>
+    <div class="home-intro__actions">
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <a class="btn" asp-page="/admin/CreateRecipe">Create recipe</a>
+            <a class="btn btn--ghost" asp-page="/admin/CreateFoodItem">Create food item</a>
+        }
+        <a class="btn btn--ghost" asp-page="/FoodItems">See all food items</a>
+    </div>
+</section>
 
-<a asp-page="/admin/CreateFoodItem">Create Food Items</a>
-
-<a asp-page="/FoodItems">See all food items</a>
-
-<!-- See all Recipes-->
-<div class="container">
-    
-    @foreach (Recipe recipe in Model.allRecipes)
+<!-- See all Recipes -->
+@if (!Model.allRecipes.Any())
+{
+    @if (User.Identity?.IsAuthenticated == true)
     {
-        <div class="recipe-card">
-            
-            <div>
-                <img/>
-                <h5>@recipe._name</h5>
-                <p>@recipe._description</p>
-                <a asp-page="/RecipeDetails" asp-route-id="@recipe._id">See Full Recipe</a>
-                <a asp-page="/admin/EditRecipe" asp-route-id="@recipe._id">Edit Recipe</a>
-            </div>
+        <div class="empty-state">
+            <p>There are no recipes yet. <a asp-page="/admin/CreateRecipe">Create the first one</a>.</p>
         </div>
     }
-</div>
+}
+else
+{
+    <div class="recipe-grid">
+        @foreach (Recipe recipe in Model.allRecipes)
+        {
+            <article class="recipe-card">
+
+                @* Placeholder until recipes have photos. Swap the div for:
+                   <img class="recipe-card__image" src="..." alt="@recipe._name" /> *@
+                <div class="plate-frame recipe-card__media" aria-hidden="true">
+                    <span class="plate">@(string.IsNullOrWhiteSpace(recipe._name) ? "?" : recipe._name.Trim().Substring(0, 1).ToUpper())</span>
+                </div>
+
+                <div class="recipe-card__body">
+                    <h2 class="recipe-card__title">@recipe._name</h2>
+                    <p class="recipe-card__description">@recipe._description</p>
+                </div>
+
+                <div class="recipe-card__actions">
+                    <a class="btn btn--small" asp-page="/RecipeDetails" asp-route-id="@recipe._id">See full recipe</a>
+                    
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <a class="recipe-card__edit" asp-page="/admin/EditRecipe" asp-route-id="@recipe._id">Edit recipe</a>
+                    }
+                </div>
+
+            </article>
+        }
+    </div>
+}

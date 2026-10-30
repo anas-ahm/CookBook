@@ -2,67 +2,83 @@
 @using CookBookLibrary.Model
 @model CookBookRazor.Pages.EditRecipe
 
-
 @{
+    ViewData["Title"] = "Edit recipe";
 }
 
-<form method="post">
+<div class="form-page">
 
-    <input type="hidden" asp-for="RecipeToEdit._id"/>
+    <header class="page-header">
+        <div class="page-header__text">
+            <a class="back-link" asp-page="/Index">All recipes</a>
+            <h1>Edit recipe</h1>
+            <p class="lead">Change the name, the food items it uses, or the steps.</p>
+        </div>
+    </header>
 
-    <div>
-        <label asp-for="RecipeToEdit._name">Name</label>
-        <input asp-for="RecipeToEdit._name"/>
-        <span asp-validation-for="RecipeToEdit._name" class="text-danger"></span>
-    </div>
+    <form method="post" class="form surface">
 
-    <div>
-        <label asp-for="RecipeToEdit._description">Description</label>
-        <input asp-for="RecipeToEdit._description"/>
-        <span asp-validation-for="RecipeToEdit._description" class="text-danger"></span>
-    </div>
+        <input type="hidden" asp-for="RecipeToEdit._id"/>
 
-    <div>
-        <label asp-for="RecipeToEdit._instructions">Instructions</label>
-        <input asp-for="RecipeToEdit._instructions"/>
-        <span asp-validation-for="RecipeToEdit._instructions" class="text-danger"></span>
-    </div>
+        <div class="form__field">
+            <label asp-for="RecipeToEdit._name">Name</label>
+            <input asp-for="RecipeToEdit._name"/>
+            <span asp-validation-for="RecipeToEdit._name" class="text-danger"></span>
+        </div>
 
-    <h4>Ingredients</h4>
+        <div class="form__field">
+            <label asp-for="RecipeToEdit._description">Description</label>
+            <textarea asp-for="RecipeToEdit._description" rows="2"></textarea>
+            <span asp-validation-for="RecipeToEdit._description" class="text-danger"></span>
+        </div>
 
-    <div id="ingredient-rows">
-        @for (int i = 0; i < Math.Max(Model.RecipeToEdit._ingredients.Count, 1); i++)
-        {
-            RecipeIngredient? current = i < Model.RecipeToEdit._ingredients.Count
-                ? Model.RecipeToEdit._ingredients[i]
-                : null;
+        <fieldset class="ingredients">
+            <legend>Ingredients</legend>
+            <p class="ingredients__hint">Choose a food item and how many grams the recipe uses.</p>
 
-            <div class="ingredient-row">
-                <select name="RecipeToEdit._ingredients[@i].FoodItem.Id">
-                    <option value="">-- Select food item --</option>
-                    @if (Model.FoodItems != null)
-                    {
-                        @foreach (var food in Model.FoodItems)
-                        {
-                            <option value="@food.Id" selected="@(current?.FoodItem?.Id == food.Id)">@food.Name</option>
-                        }
-                    }
-                </select>
+            <div id="ingredient-rows" class="ingredients__rows">
+                @for (int i = 0; i < Math.Max(Model.RecipeToEdit._ingredients.Count, 1); i++)
+                {
+                    RecipeIngredient? current = i < Model.RecipeToEdit._ingredients.Count
+                        ? Model.RecipeToEdit._ingredients[i]
+                        : null;
 
-                <input type="number" step="any" min="1"
-                       name="RecipeToEdit._ingredients[@i].Grams"
-                       value="@(current?.Grams)"
-                       placeholder="Grams"/>
+                    <div class="ingredient-row">
+                        <select name="RecipeToEdit._ingredients[@i].FoodItem.Id" aria-label="Food item">
+                            <option value="">-- Select food item --</option>
+                            @if (Model.FoodItems != null)
+                            {
+                                @foreach (var food in Model.FoodItems)
+                                {
+                                    <option value="@food.Id" selected="@(current?.FoodItem?.Id == food.Id)">@food.Name</option>
+                                }
+                            }
+                        </select>
+
+                        <input type="number" step="any" min="1"
+                               name="RecipeToEdit._ingredients[@i].Grams"
+                               value="@(current?.Grams)"
+                               placeholder="Grams" aria-label="Grams"/>
+                    </div>
+                }
             </div>
-        }
-    </div>
 
-    <button type="button" id="add-ingredient">+ Add ingredient</button>
+            <button type="button" id="add-ingredient" class="btn btn--ghost btn--small">+ Add ingredient</button>
+        </fieldset>
 
-    <button type="submit">Save</button>
-    <a asp-page="/Recipes">Cancel</a>
+        <div class="form__field">
+            <label asp-for="RecipeToEdit._instructions">Instructions</label>
+            <textarea asp-for="RecipeToEdit._instructions" rows="8"></textarea>
+            <span asp-validation-for="RecipeToEdit._instructions" class="text-danger"></span>
+        </div>
 
-</form>
+        <div class="form__actions">
+            <button type="submit" class="btn">Save changes</button>
+            <a class="btn btn--ghost" asp-page="/Recipes">Cancel</a>
+        </div>
+
+    </form>
+</div>
 
 <script>
     let nextIndex = @Math.Max(Model.RecipeToEdit._ingredients.Count, 1);
