@@ -40,12 +40,15 @@ else
     <div class="recipe-grid">
         @foreach (Recipe recipe in Model.allRecipes)
         {
+            var imgPath = Model.GetImagePath(recipe._id); 
+            
             <article class="recipe-card">
-
-                @* Placeholder until recipes have photos. Swap the div for:
-                   <img class="recipe-card__image" src="..." alt="@recipe._name" /> *@
-                <div class="plate-frame recipe-card__media" aria-hidden="true">
-                    <span class="plate">@(string.IsNullOrWhiteSpace(recipe._name) ? "?" : recipe._name.Trim().Substring(0, 1).ToUpper())</span>
+                
+                <div class="plate-frame recipe-card__media">
+                    @if (imgPath != null)
+                    {
+                        <img class="recipe-card__image" src="@imgPath" alt="@recipe._name" />
+                    }
                 </div>
 
                 <div class="recipe-card__body">

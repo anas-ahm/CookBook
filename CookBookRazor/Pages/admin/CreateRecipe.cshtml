@@ -14,10 +14,8 @@
             <p class="lead">Name the recipe, add the food items it uses, and write down the steps.</p>
         </div>
     </header>
-
-    @if (TempData["errorMessage"] == null && TempData["sucessMessage"] == null)
-    {
-        <form method="post" asp-page-handler="CreateRecipe" class="form surface">
+    
+        <form method="post" enctype="multipart/form-data" asp-page-handler="CreateRecipe" class="form surface">
 
             <div class="form__field">
                 <label asp-for="recipeToCreate._name">Name</label>
@@ -55,6 +53,11 @@
 
                 <button type="button" id="add-ingredient" class="btn btn--ghost btn--small">+ Add ingredient</button>
             </fieldset>
+            
+            <div class="form__field">
+                <label for="image">Picture (optional)</label>
+                <input type="file" id="image" name="image" accept="image/*" />
+            </div>
 
             <div class="form__field">
                 <label asp-for="recipeToCreate._instructions">Instructions</label>
@@ -67,7 +70,6 @@
             </div>
 
         </form>
-    }
 </div>
 
 

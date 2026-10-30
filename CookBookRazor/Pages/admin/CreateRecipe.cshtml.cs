@@ -52,7 +52,7 @@ public class CreateRecipe : PageModel
 
     
     
-    public IActionResult OnPostCreateRecipe()
+    public async Task<IActionResult> OnPostCreateRecipeAsync()
     {
         // Keep only the rows the user actually filled in
         List<RecipeIngredient> filledIngredients = new List<RecipeIngredient>();
@@ -67,30 +67,58 @@ public class CreateRecipe : PageModel
             }
         }
 
+        bool hasImage = false;
+
+        if (image != null && image.Length > 0)
+        {
+            hasImage = true;
+        }
+        
+        string ext = "";
+        
+        if (hasImage)
+        {
+            if (image!.Length > MaxBytes)
+            {
+                TempData["errorMessage"] = "File is too large (max 5 MB).";
+                FoodItems = _foodItemService.GetAllFoodItems();
+                return Page();
+            }
+
+            // Checking if image is correct format
+            ext = Path.GetExtension(image.FileName).ToLowerInvariant();
+            if (!AllowedExtensions.Contains(ext))
+            {
+                TempData["errorMessage"] = "Only image files are allowed.";
+                FoodItems = _foodItemService.GetAllFoodItems();
+                return Page();
+            }
+        }
+
         recipeToCreate._ingredients = filledIngredients;
         
         try
         {
             _recipeService.CreateRecipe(recipeToCreate);
-
-            if (image != null || image.Length != 0)
-            {
-                
-                if (image.Length > MaxBytes)
-                {
-                    TempData["errorMessage"] = "File is too large (max 5 MB).";
-                    return Page();
-                }
-                
-                var ext = Path.GetExtension(image.FileName).ToLowerInvariant();
-                if (!AllowedExtensions.Contains(ext))
-                {
-                    TempData["errorMessage"] = "Only image files are allowed.";
-                    return Page();
-                }
-                
-            }
             
+            // 4. Save the image, named after the new recipe's id
+            if (hasImage)
+            {
+                int id = _recipeService.GetAllRecipes().Max(r => r._id);
+
+                string fileName = $"{id}{ext}";
+                string folder = Path.Combine(_env.WebRootPath, "RecipePictures");
+                Directory.CreateDirectory(folder);
+
+                string fullPath = Path.Combine(folder, fileName);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    await image!.CopyToAsync(stream);
+                }
+
+                // Web path to use in <img src="...">
+                // e.g. "/RecipePictures/12.png": store this on the recipe if you want it in the DB
+            }
             
             TempData["successMessage"] = "Recipe Created Successfully!";
             return RedirectToPage("/admin/CreateRecipe"); 
