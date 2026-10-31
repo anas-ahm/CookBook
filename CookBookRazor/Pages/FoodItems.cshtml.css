@@ -6,7 +6,7 @@
 .food-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 15.5rem), 1fr));
-  align-items: start;
+  align-items: stretch;
   gap: var(--space-xl) var(--space-l);
 }
 
@@ -14,6 +14,11 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
+  height: 100%;
+}
+
+.food-card__label {
+  flex: 1;
 }
 
 .food-card__name {
@@ -29,4 +34,143 @@
 .food-card__actions ::deep a {
   font-size: var(--step--1);
   font-weight: 600;
+}
+
+/* Category filter – checkboxes styled as pill toggles */
+.category-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-s);
+  margin-top: var(--space-m);
+}
+
+.category-filter__group {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.category-filter__legend {
+  padding: 0;
+  margin-bottom: var(--space-xs);
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-espresso-soft);
+}
+
+.category-filter__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.category-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 0.4rem 0.85rem 0.4rem 0.6rem;
+  font-size: var(--step--1);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-espresso);
+  background-color: var(--color-linen);
+  border: 1px solid var(--color-sand-deep);
+  border-radius: 999px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+/* The fake checkbox square */
+.category-chip::before {
+  content: "";
+  display: grid;
+  place-items: center;
+  width: 0.95rem;
+  height: 0.95rem;
+  font-size: 0.7rem;
+  line-height: 1;
+  background-color: var(--color-paper);
+  border: 1.5px solid var(--color-sand-deep);
+  border-radius: 4px;
+  transition: inherit;
+}
+
+.category-chip:hover {
+  border-color: var(--color-espresso-soft);
+}
+
+/* Real checkbox: hidden visually but still focusable and clickable via the label */
+.category-chip input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Checked */
+.category-chip:has(input:checked) {
+  color: var(--color-linen);
+  background-color: var(--color-basil);
+  border-color: var(--color-basil);
+}
+
+.category-chip:has(input:checked)::before {
+  content: "✓";
+  color: var(--color-basil);
+  background-color: var(--color-linen);
+  border-color: var(--color-linen);
+}
+
+.category-chip:has(input:checked):hover {
+  background-color: var(--color-basil-dark);
+  border-color: var(--color-basil-dark);
+}
+
+/* Keyboard focus */
+.category-chip:has(input:focus-visible) {
+  outline: 3px solid var(--color-basil);
+  outline-offset: 2px;
+}
+
+/* Tag helper link, so ::deep is needed under CSS isolation */
+.category-filter ::deep .category-filter__clear {
+  font-size: var(--step--1);
+  font-weight: 600;
+  padding-bottom: 0.4rem;
+}
+
+/* Search */
+.food-search {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  max-width: 22rem;
+  margin-top: var(--space-m);
+}
+
+.food-search__label {
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-espresso-soft);
+}
+
+.food-card[hidden] {
+  display: none;
+}
+
+.food-search__empty {
+  color: var(--color-espresso-soft);
 }

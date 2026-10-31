@@ -20,11 +20,18 @@ public class FoodItems : PageModel
 
     public List<FoodItem> allFoodItems { get; set; } = new List<FoodItem>();
     
+    [BindProperty(SupportsGet = true)] public List<FoodCategory> Categories { get; set; } = new();
+    
     public void OnGet()
     {
         try
         {
             allFoodItems = _foodItemService.GetAllFoodItems();
+            
+            if (Categories.Any())
+            {
+                allFoodItems = allFoodItems.Where(f => Categories.Contains(f.Category)).ToList();
+            }
         }
         catch (Exception ex)
         {

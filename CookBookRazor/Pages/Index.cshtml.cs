@@ -28,7 +28,7 @@ public class IndexModel : PageModel
         }
         catch (Exception ex)
         {
-            _logger.LogError("Couldn't get all recipes", ex);
+            _logger.LogError(ex, "Couldn't get all recipes");
             TempData["errorMessage"] = "Something went wrong getting all recipes, come back later";
         }
     }
