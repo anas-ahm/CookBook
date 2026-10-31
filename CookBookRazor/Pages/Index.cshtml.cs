@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using CookBookRazor.Service;
 using CookBookLibrary.Service;
 using CookBookLibrary.Model;
 
@@ -7,18 +8,18 @@ namespace CookBookRazor.Pages;
 public class IndexModel : PageModel
 {
     private readonly RecipeService _recipeService;
+    private readonly IImageService _imageService;
     private readonly ILogger<IndexModel> _logger;
-    private readonly IWebHostEnvironment _env;
 
-    public IndexModel(RecipeService recipeService, ILogger<IndexModel> logger, IWebHostEnvironment env)
+    public IndexModel(RecipeService recipeService, ILogger<IndexModel> logger, IWebHostEnvironment env, IImageService imageService)
     {
         _recipeService = recipeService;
+        _imageService = imageService;
         _logger = logger;
-        _env = env;
     }
     
     public List<Recipe> allRecipes { get; set; } = new List<Recipe>();
-    private static readonly string[] AllowedExtensions = { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+    public string? GetImagePath(int id) => _imageService.GetImagePath(id);
     
     public void OnGet()
     {
@@ -33,10 +34,5 @@ public class IndexModel : PageModel
         }
     }
     
-    public string? GetImagePath(int id)
-    {
-        return AllowedExtensions
-            .Select(ext => $"/RecipePictures/{id}{ext}")
-            .FirstOrDefault(p => System.IO.File.Exists(Path.Combine(_env.WebRootPath, p.TrimStart('/'))));
-    }
+    
 }

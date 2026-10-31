@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using CookBookLibrary.Service;
+using CookBookRazor.Service;
 using CookBookLibrary.Model;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,18 +10,21 @@ public class RecipeDetails : PageModel
 {
     // Connecting to service
     private readonly RecipeService _recipeService;
+    private readonly IImageService _imageService;
     private readonly FoodItemService _foodItemService;
 
 
-    public RecipeDetails(RecipeService recipeService, FoodItemService foodItemService)
+    public RecipeDetails(RecipeService recipeService, FoodItemService foodItemService, IImageService imageService)
     {
         _recipeService = recipeService;
+        _imageService = imageService;
         _foodItemService = foodItemService;
     }
     
     // Property for selecting amount of servings
     // default = 1
     [BindProperty] public int Servings { get; set; } = 1;
+    public string? GetImagePath(int id) => _imageService.GetImagePath(id);
     
     // Properties for macros
     public double Calories { get; set; }

@@ -37,11 +37,24 @@
             
         </div>
 
-        @* Image: placeholder until recipes have photos. Swap the div for:
-           <img class="recipe__image" src="..." alt="" /> *@
-        <div class="plate-frame recipe__plate" aria-hidden="true">
-            <span class="plate">@initial</span>
-        </div>
+    @{
+        string? imagePath = @Model.GetImagePath(@Model.recipeToShow._id);    
+    }
+    
+        @if (imagePath != null)
+        {
+            <div class="plate-frame recipe-card__media" aria-hidden="true">
+                <img class="recipe-card__image" src="@imagePath" alt="@Model.recipeToShow._name"/>
+            </div>
+        }
+        
+        @if(imagePath == null)
+        {
+            <div class="plate-frame recipe-card__media" aria-hidden="true">
+                <span class="plate">@initial</span>
+            </div>
+        }
+        
     </header>
 
     <div class="recipe__body">

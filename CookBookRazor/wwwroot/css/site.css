@@ -789,3 +789,15 @@ legend {
     scroll-behavior: auto !important;
   }
 }
+
+/* For when recipes get real photos */
+.recipe-card__image {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-bottom: 1px solid var(--color-sand);
+}
+
+.recipe-card__media {
+  border-bottom: 1px solid var(--color-sand);
+}
