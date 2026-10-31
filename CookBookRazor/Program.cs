@@ -2,8 +2,11 @@ using CookBookLibrary.Repository;
 using CookBookLibrary.Service;
 using CookBookLibrary.Model;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
+
+DotNetEnv.Env.Load(Path.Combine(AppContext.BaseDirectory, ".env"));
 
 // Add services to the container.
 builder.Services.AddRazorPages(options =>
