@@ -6,12 +6,15 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/admin", "Admin");
+});
 
 // Adding authentication with cookies
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 {
-    options.LoginPath = "/Login"; //hvor du sendes hen hvis du prøver at tilgå en side der kræver login
+    options.LoginPath = "/auth/Login"; //hvor du sendes hen hvis du prøver at tilgå en side der kræver login
     options.AccessDeniedPath = "/Index";  //hvor du sendes hen, hvis du er logget ind men prøver at tilgå en side du ikke er autoriseret til 
     options.Cookie.Name = "session-cookie"; // Set the name of the cookie
     options.Cookie.HttpOnly = true; // Prevent client side scripts from accessing the cookie
