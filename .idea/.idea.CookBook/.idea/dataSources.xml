@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:mysql://mysql45.unoeuro.com :3306/ anasmajid_com_db_CookBook</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="anasmajid_com_db_CookBook@mysql45.unoeuro.com" uuid="99bd31ba-beaf-4833-90db-33e305c69a15">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://mysql45.unoeuro.com:3306/anasmajid_com_db_CookBook</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

@@ -8,9 +8,9 @@ public class Admin
     public string Password { get; set; }
     
     // Constructor
-    public Admin(int id, string username, string password)
+    public Admin(string username, string password)
     {
-        Id = id;
+ 
         Username = username;
         Password = password;
     }

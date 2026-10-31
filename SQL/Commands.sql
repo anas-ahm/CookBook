@@ -1,1 +1,1 @@
-DROP TABLE Admin;
+DELETE FROM Admin WHERE admin_id = 3
