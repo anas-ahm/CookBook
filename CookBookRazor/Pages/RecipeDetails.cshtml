@@ -23,6 +23,18 @@
         <div class="recipe__intro">
             <h1 class="recipe__title">@Model.recipeToShow._name</h1>
             <p class="lead recipe__description">@Model.recipeToShow._description</p>
+            
+            
+            <p>Select amount of people:</p>
+            <form method="post" asp-page-handler="Portion" asp-route-id="@Model.recipeToShow._id">
+                <select asp-for="Servings" onchange="this.form.submit()">
+                    @for (int i = 1; i <= 20; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+            </form>
+            
         </div>
 
         @* Image: placeholder until recipes have photos. Swap the div for:
