@@ -2,6 +2,7 @@ using CookBookLibrary.Repository;
 using CookBookLibrary.Service;
 using CookBookLibrary.Model;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.FileProviders;
 using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,6 +46,16 @@ builder.Services.AddScoped<FoodItemService>();
 builder.Services.AddScoped<RecipeService>();
 
 var app = builder.Build();
+
+// Let's Encrypt challenge files, served over plain http without redirect
+var wellKnownPath = Path.Combine(AppContext.BaseDirectory, ".well-known");
+Directory.CreateDirectory(wellKnownPath);
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(wellKnownPath),
+    RequestPath = "/.well-known",
+    ServeUnknownFileTypes = true
+});
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
