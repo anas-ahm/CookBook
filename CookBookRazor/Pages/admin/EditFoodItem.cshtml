@@ -1,5 +1,6 @@
 @page "{id:int}"
 @model CookBookRazor.Pages.EditFoodItem
+@using CookBookLibrary.Model
 
 @{
     
@@ -23,6 +24,14 @@
             <label asp-for="FoodItemToEdit.Name">Name</label>
             <input asp-for="FoodItemToEdit.Name"/>
             <span asp-validation-for="FoodItemToEdit.Name" class="text-danger"></span>
+        </div>
+        
+        <div class="form__field">
+            <label asp-for="FoodItemToEdit.Category">Category</label>
+            <select asp-for="FoodItemToEdit.Category"
+                    asp-items="Html.GetEnumSelectList<FoodCategory>()">
+            </select>
+            <span asp-validation-for="FoodItemToEdit.Category" class="text-danger"></span>
         </div>
 
         <fieldset class="nutrient-group">

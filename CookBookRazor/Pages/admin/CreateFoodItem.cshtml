@@ -10,6 +10,13 @@
         <label asp-for="foodItem.Name">Name</label>
         <input asp-for="foodItem.Name" />
     </div>
+    
+    <div>
+        <label asp-for="foodItem.Category">Category</label>
+        <select asp-for="foodItem.Category"
+                asp-items="Html.GetEnumSelectList<CookBookLibrary.Model.FoodCategory>()">
+        </select>
+    </div>
 
     <div>
         <label asp-for="foodItem.Calories">Calories (per 100 g)</label>

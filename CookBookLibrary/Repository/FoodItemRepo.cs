@@ -14,7 +14,7 @@ public class FoodItemRepo : ICrud<FoodItem>
     public FoodItem Create(FoodItem foodItem)
     {
         string sql = """
-                     INSERT INTO FoodItem (name, calories, protein, fat, saturated_fat, carbs, sugar, fiber, salt) VALUES (@name, @calories, @protein, @fat, @saturated_fat, @carbs, @sugar, @fiber, @salt)
+                     INSERT INTO FoodItem (name, category, calories, protein, fat, saturated_fat, carbs, sugar, fiber, salt) VALUES (@name, @category, @calories, @protein, @fat, @saturated_fat, @carbs, @sugar, @fiber, @salt)
                      """;
 
         using MySqlConnection connString = _dbWorker.ConnectToDB();
@@ -22,6 +22,7 @@ public class FoodItemRepo : ICrud<FoodItem>
         MySqlCommand cmd = new MySqlCommand(sql, connString);
         
         cmd.Parameters.AddWithValue("@name", foodItem.Name);
+        cmd.Parameters.AddWithValue("@category", foodItem.Category.ToString());
         cmd.Parameters.AddWithValue("@calories", foodItem.Calories);
         cmd.Parameters.AddWithValue("@protein", foodItem.Protein);
         cmd.Parameters.AddWithValue("@fat", foodItem.Fat);
@@ -55,7 +56,8 @@ public class FoodItemRepo : ICrud<FoodItem>
             FoodItem foodItem = new FoodItem();
 
             foodItem.Id = reader.GetInt32("id");
-            foodItem.Name = reader.GetString("name");
+            foodItem.Name = reader.GetString("name"); 
+            foodItem.Category = Enum.Parse<FoodCategory>(reader.GetString("category"));
             foodItem.Calories = reader.GetDouble("calories");
             foodItem.Protein = reader.GetDouble("protein");
 
@@ -104,6 +106,7 @@ public class FoodItemRepo : ICrud<FoodItem>
 
             foodItem.Id = reader.GetInt32("id");
             foodItem.Name = name;
+            foodItem.Category = Enum.Parse<FoodCategory>(reader.GetString("category"));
             foodItem.Calories = reader.GetDouble("calories");
             foodItem.Protein = reader.GetDouble("protein");
 
@@ -128,6 +131,7 @@ public class FoodItemRepo : ICrud<FoodItem>
         string sql = """
                      UPDATE FoodItem
                      SET name = @name,
+                         category = @category,
                          calories = @calories,
                          protein = @protein,
                          fat = @fat,
@@ -145,6 +149,7 @@ public class FoodItemRepo : ICrud<FoodItem>
 
         cmd.Parameters.AddWithValue("@id", foodItem.Id);
         cmd.Parameters.AddWithValue("@name", foodItem.Name);
+        cmd.Parameters.AddWithValue("@category", foodItem.Category.ToString());
         cmd.Parameters.AddWithValue("@calories", foodItem.Calories);
         cmd.Parameters.AddWithValue("@protein", foodItem.Protein);
         cmd.Parameters.AddWithValue("@fat", foodItem.Fat);
