@@ -1,0 +1,566 @@
+/* /Pages/admin/CreateRecipe.cshtml.rz.scp.css */
+/* CreateRecipe.cshtml – new recipe form
+   Scoped to this page by CSS isolation. The ingredient rows are plain HTML
+   (no asp-for), so they get the scope attribute and can be styled directly.
+   Rows added with "+ Add ingredient" are clones, so they keep the attribute. */
+
+.ingredients__hint[b-dsm6pvnrpp] {
+    margin-bottom: var(--space-m);
+    font-size: var(--step--1);
+    color: var(--color-espresso-soft);
+}
+
+.ingredients__rows[b-dsm6pvnrpp] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+    margin-bottom: var(--space-m);
+}
+
+/* Food item takes the space, grams gets a fixed column */
+.ingredient-row[b-dsm6pvnrpp] {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 7.5rem;
+    gap: var(--space-s);
+}
+
+/* Phones: food item on its own line, grams underneath */
+@media (max-width: 30rem) {
+    .ingredient-row[b-dsm6pvnrpp] {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-xs);
+        padding-bottom: var(--space-s);
+        border-bottom: 1px solid var(--color-sand);
+    }
+
+    .ingredient-row input[b-dsm6pvnrpp] {
+        width: 8rem;
+    }
+}
+/* /Pages/admin/EditFoodItem.cshtml.rz.scp.css */
+/* EditFoodItem.cshtml – edit food item form
+   Scoped to this page by CSS isolation. Inputs and labels are styled in
+   site.css (they use asp-for, so scoped styles can't reach them directly). */
+
+/* The eight nutrition fields: 2 per row on phones, 4 per row on wider screens */
+.nutrient-group__fields[b-x370ws60cw] {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 7.5rem), 1fr));
+  gap: var(--space-m);
+}
+
+/* Validation messages can be long; keep them from stretching the grid */
+.nutrient-group__fields[b-x370ws60cw]  .field-validation-error {
+  overflow-wrap: anywhere;
+}
+/* /Pages/admin/EditRecipe.cshtml.rz.scp.css */
+/* EditRecipe.cshtml – edit recipe form
+   Scoped to this page by CSS isolation. The ingredient rows are plain HTML
+   (no asp-for), so they get the scope attribute and can be styled directly.
+   Rows added with "+ Add ingredient" are clones, so they keep the attribute. */
+
+.ingredients__hint[b-gvui2lhngh] {
+  margin-bottom: var(--space-m);
+  font-size: var(--step--1);
+  color: var(--color-espresso-soft);
+}
+
+.ingredients__rows[b-gvui2lhngh] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+  margin-bottom: var(--space-m);
+}
+
+/* Food item takes the space, grams gets a fixed column */
+.ingredient-row[b-gvui2lhngh] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 7.5rem;
+  gap: var(--space-s);
+}
+
+/* Phones: food item on its own line, grams underneath */
+@media (max-width: 30rem) {
+  .ingredient-row[b-gvui2lhngh] {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-xs);
+    padding-bottom: var(--space-s);
+    border-bottom: 1px solid var(--color-sand);
+  }
+
+  .ingredient-row input[b-gvui2lhngh] {
+    width: 8rem;
+  }
+}
+/* /Pages/auth/Login.cshtml.rz.scp.css */
+/* Login.cshtml – log in card
+   Scoped to this page by CSS isolation. The card, fields and buttons come
+   from site.css (.form-page--auth, .form, .btn). */
+
+/* "Or" with a line on each side */
+.auth-divider[b-m2raygup61] {
+    display: flex;
+    align-items: center;
+    gap: var(--space-s);
+    max-width: none;
+    margin: var(--space-l) 0;
+    font-size: var(--step--1);
+    color: var(--color-espresso-soft);
+}
+
+.auth-divider[b-m2raygup61]::before,
+.auth-divider[b-m2raygup61]::after {
+    content: "";
+    flex: 1;
+    border-top: 1px solid var(--color-sand);
+}
+/* /Pages/auth/Signup.cshtml.rz.scp.css */
+/* Signup.cshtml – sign up card
+   Scoped to this page by CSS isolation. The card, fields and buttons come
+   from site.css (.form-page--auth, .form, .btn). The two password fields sit
+   side by side through .form__field--half. */
+
+.signup__footer[b-xzjqcbfb6p] {
+    max-width: none;
+    margin: var(--space-l) 0 0;
+    padding-top: var(--space-l);
+    font-size: var(--step--1);
+    color: var(--color-espresso-soft);
+    text-align: center;
+    border-top: 1px solid var(--color-sand);
+}
+/* /Pages/Error.cshtml.rz.scp.css */
+/* Error.cshtml – error page
+   Scoped to this page by CSS isolation. */
+
+.error-page[b-1c68oo456a] {
+  max-width: 46rem;
+}
+
+.error-page__title[b-1c68oo456a] {
+  color: var(--color-tomato);
+}
+
+.error-page__request[b-1c68oo456a] {
+  margin-bottom: var(--space-xl);
+}
+
+.error-page__dev[b-1c68oo456a] {
+  margin-top: var(--space-xl);
+}
+
+.error-page__dev-title[b-1c68oo456a] {
+  font-family: var(--font-body);
+  font-size: var(--step-1);
+  font-weight: 700;
+}
+
+.error-page__dev > :last-child[b-1c68oo456a] {
+  margin-bottom: 0;
+}
+/* /Pages/FoodItems.cshtml.rz.scp.css */
+/* FoodItems.cshtml – every food item as a nutrition label
+   Scoped to this page by CSS isolation. The label itself is shared and lives
+   in site.css; this file lays the labels out in a grid and makes them compact.
+   The edit link is a tag helper, so it's reached from its parent with ::deep. */
+
+.food-grid[b-tf5xe9nky8] {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15.5rem), 1fr));
+  align-items: stretch;
+  gap: var(--space-xl) var(--space-l);
+}
+
+.food-card[b-tf5xe9nky8] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  height: 100%;
+}
+
+.food-card__label[b-tf5xe9nky8] {
+  flex: 1;
+}
+
+.food-card__name[b-tf5xe9nky8] {
+  font-size: 1.75rem;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.food-card__actions[b-tf5xe9nky8] {
+  padding-inline: 2px;
+}
+
+.food-card__actions[b-tf5xe9nky8]  a {
+  font-size: var(--step--1);
+  font-weight: 600;
+}
+
+/* Category filter – checkboxes styled as pill toggles */
+.category-filter[b-tf5xe9nky8] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-s);
+  margin-top: var(--space-m);
+}
+
+.category-filter__group[b-tf5xe9nky8] {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.category-filter__legend[b-tf5xe9nky8] {
+  padding: 0;
+  margin-bottom: var(--space-xs);
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-espresso-soft);
+}
+
+.category-filter__list[b-tf5xe9nky8] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.category-chip[b-tf5xe9nky8] {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 0.4rem 0.85rem 0.4rem 0.6rem;
+  font-size: var(--step--1);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-espresso);
+  background-color: var(--color-linen);
+  border: 1px solid var(--color-sand-deep);
+  border-radius: 999px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+/* The fake checkbox square */
+.category-chip[b-tf5xe9nky8]::before {
+  content: "";
+  display: grid;
+  place-items: center;
+  width: 0.95rem;
+  height: 0.95rem;
+  font-size: 0.7rem;
+  line-height: 1;
+  background-color: var(--color-paper);
+  border: 1.5px solid var(--color-sand-deep);
+  border-radius: 4px;
+  transition: inherit;
+}
+
+.category-chip:hover[b-tf5xe9nky8] {
+  border-color: var(--color-espresso-soft);
+}
+
+/* Real checkbox: hidden visually but still focusable and clickable via the label */
+.category-chip input[b-tf5xe9nky8] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Checked */
+.category-chip:has(input:checked)[b-tf5xe9nky8] {
+  color: var(--color-linen);
+  background-color: var(--color-basil);
+  border-color: var(--color-basil);
+}
+
+.category-chip:has(input:checked)[b-tf5xe9nky8]::before {
+  content: "✓";
+  color: var(--color-basil);
+  background-color: var(--color-linen);
+  border-color: var(--color-linen);
+}
+
+.category-chip:has(input:checked):hover[b-tf5xe9nky8] {
+  background-color: var(--color-basil-dark);
+  border-color: var(--color-basil-dark);
+}
+
+/* Keyboard focus */
+.category-chip:has(input:focus-visible)[b-tf5xe9nky8] {
+  outline: 3px solid var(--color-basil);
+  outline-offset: 2px;
+}
+
+/* Tag helper link, so ::deep is needed under CSS isolation */
+.category-filter[b-tf5xe9nky8]  .category-filter__clear {
+  font-size: var(--step--1);
+  font-weight: 600;
+  padding-bottom: 0.4rem;
+}
+
+/* Search */
+.food-search[b-tf5xe9nky8] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  max-width: 22rem;
+  margin-top: var(--space-m);
+}
+
+.food-search__label[b-tf5xe9nky8] {
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-espresso-soft);
+}
+
+.food-card[hidden][b-tf5xe9nky8] {
+  display: none;
+}
+
+.food-search__empty[b-tf5xe9nky8] {
+  color: var(--color-espresso-soft);
+}
+/* /Pages/Index.cshtml.rz.scp.css */
+/* Index.cshtml – recipe overview
+   Scoped to this page by CSS isolation. Links made with asp-page are tag
+   helpers and don't get the scope attribute, so they are styled through the
+   shared .btn classes or reached from a plain parent with ::deep. */
+
+/* Intro: title on the left, admin actions on the right */
+.home-intro[b-ohyft2inia] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-l) var(--space-xl);
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-l);
+  border-bottom: 1px solid var(--color-sand);
+}
+
+.home-intro__greeting[b-ohyft2inia] {
+  margin-bottom: var(--space-2xs);
+  font-weight: 600;
+  color: var(--color-basil);
+}
+
+.home-intro__title[b-ohyft2inia] {
+  margin-bottom: var(--space-xs);
+}
+
+.home-intro__lead[b-ohyft2inia] {
+  margin-bottom: 0;
+}
+
+.home-intro__actions[b-ohyft2inia] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-s);
+}
+
+/* Recipe cards */
+.recipe-grid[b-ohyft2inia] {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+  gap: var(--space-l);
+}
+
+.recipe-card[b-ohyft2inia] {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--color-linen);
+  border: 1px solid var(--color-sand);
+  border-radius: var(--radius-m);
+}
+
+.recipe-card__media[b-ohyft2inia] {
+  border-bottom: 1px solid var(--color-sand);
+}
+
+/* For when recipes get real photos */
+.recipe-card__image[b-ohyft2inia] {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-bottom: 1px solid var(--color-sand);
+}
+
+.recipe-card__body[b-ohyft2inia] {
+  flex: 1;
+  padding: var(--space-l) var(--space-l) var(--space-s);
+}
+
+.recipe-card__title[b-ohyft2inia] {
+  margin-bottom: var(--space-xs);
+  font-size: var(--step-2);
+}
+
+.recipe-card__description[b-ohyft2inia] {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: var(--color-espresso-soft);
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.recipe-card__actions[b-ohyft2inia] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+  padding: var(--space-s) var(--space-l) var(--space-l);
+}
+
+.recipe-card__actions[b-ohyft2inia]  .recipe-card__edit {
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--color-espresso-soft);
+}
+
+.recipe-card__actions[b-ohyft2inia]  .recipe-card__edit:hover {
+  color: var(--color-espresso);
+}
+/* /Pages/RecipeDetails.cshtml.rz.scp.css */
+/* RecipeDetails.cshtml – one recipe
+   Scoped to this page by CSS isolation. The nutrition label itself is shared
+   and lives in site.css; this file only places it on the page. */
+
+.recipe__topbar[b-kqrqqx308z] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+  margin-bottom: var(--space-l);
+}
+
+/* Header: title + description, with the plate next to it */
+.recipe__header[b-kqrqqx308z] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-l) var(--space-xl);
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-xl);
+  border-bottom: 1px solid var(--color-sand);
+}
+
+.recipe__title[b-kqrqqx308z] {
+  margin-bottom: var(--space-s);
+}
+
+.recipe__description[b-kqrqqx308z] {
+  margin-bottom: 0;
+}
+
+.recipe__plate[b-kqrqqx308z] {
+  order: -1;
+  width: 7.5rem;
+  aspect-ratio: 1;
+  border: 1px solid var(--color-sand);
+  border-radius: var(--radius-m);
+}
+
+.recipe__plate .plate[b-kqrqqx308z] {
+  width: 72%;
+  font-size: 2.4rem;
+}
+
+/* For when recipes get real photos */
+.recipe__image[b-kqrqqx308z] {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-m);
+}
+
+@media (min-width: 48rem) {
+  .recipe__header[b-kqrqqx308z] {
+    grid-template-columns: minmax(0, 1fr) 15rem;
+  }
+
+  .recipe__plate[b-kqrqqx308z] {
+    order: 0;
+    width: auto;
+  }
+
+  .recipe__plate .plate[b-kqrqqx308z] {
+    font-size: 4rem;
+  }
+}
+
+/* Body: ingredients + instructions, with the nutrition label beside them */
+.recipe__body[b-kqrqqx308z] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-xl);
+}
+
+@media (min-width: 56rem) {
+  .recipe__body[b-kqrqqx308z] {
+    grid-template-columns: minmax(0, 1fr) 19rem;
+    align-items: start;
+    gap: var(--space-2xl);
+  }
+
+  .recipe__aside[b-kqrqqx308z] {
+    position: sticky;
+    top: var(--space-l);
+  }
+}
+
+.recipe__section + .recipe__section[b-kqrqqx308z] {
+  margin-top: var(--space-xl);
+}
+
+.recipe__heading[b-kqrqqx308z] {
+  font-size: var(--step-2);
+}
+
+.ingredient-list[b-kqrqqx308z] {
+  max-width: 40rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--color-sand);
+}
+
+.ingredient-list__item[b-kqrqqx308z] {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-m);
+  padding-block: 0.6rem;
+  border-bottom: 1px solid var(--color-sand);
+}
+
+.ingredient-list__amount[b-kqrqqx308z] {
+  white-space: nowrap;
+  color: var(--color-espresso-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Keeps the line breaks typed into the instructions field */
+.recipe__instructions[b-kqrqqx308z] {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  white-space: pre-line;
+}
