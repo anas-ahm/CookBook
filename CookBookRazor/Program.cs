@@ -69,6 +69,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseStaticFiles(); // serves runtime uploads like /RecipePictures/*
+
 app.UseRouting();
 
 app.UseAuthentication(); // For authenticating login
